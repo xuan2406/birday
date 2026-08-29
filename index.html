@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
+        /* === 基础重置 & 布局（保持不变） === */
         * {
             margin: 0;
             padding: 0;
@@ -151,7 +152,6 @@
             50% { background-position: 100% 50%; }
         }
 
-        /* 副标题 - 使用flex布局，图标固定两端，文字居中自动换行 */
         .subtitle {
             display: flex;
             align-items: center;
@@ -182,6 +182,7 @@
             padding: 0 2px;
         }
 
+        /* ===== 视频容器 ===== */
         .video-wrapper {
             margin: 16px 0 16px;
             border-radius: 24px;
@@ -213,6 +214,25 @@
             transform: scale(0.98);
         }
 
+        /* ===== ✦✦✦ 关键修复：只隐藏视频结束后的重播按钮 ✦✦✦ ===== */
+        /* 默认情况下，所有控件正常显示（不隐藏） */
+        /* 当视频结束时，给 video 添加 .ended 类，此时才隐藏覆盖层上的播放按钮 */
+        video.ended::-webkit-media-controls-overlay-play-button {
+            display: none !important;
+        }
+        video.ended::-webkit-media-controls-overlay-enclosure {
+            display: none !important;
+        }
+        video.ended::-webkit-media-controls-start-playback-button {
+            display: none !important;
+        }
+        /* 针对 X5 内核 */
+        video.ended::-webkit-media-controls-play-button {
+            display: none !important;
+        }
+        /* 确保其他控件不受影响 */
+
+        /* ===== 视频占位（礼物卡用） ===== */
         .video-placeholder {
             position: absolute;
             inset: 0;
@@ -605,7 +625,6 @@
             100% { opacity: 0.8; transform: scale(1.2); }
         }
 
-        /* ===== 页脚 - 低调但清晰 ===== */
         .footer-hint {
             margin-top: 16px;
             font-size: clamp(0.65rem, 2vw, 0.8rem);
@@ -634,6 +653,7 @@
             font-size: 0.7em;
         }
 
+        /* ===== 响应式 ===== */
         @media (max-width: 480px) {
             .card {
                 padding: 24px 16px 32px;
@@ -756,13 +776,13 @@
             <i class="fas fa-cake-candles"></i>
         </div>
 
-        <!-- 副标题：图标固定两端，文字居中可换行，保持对称 -->
         <div class="subtitle">
             <span class="icon-left"><i class="fas fa-star"></i></span>
             <span class="text">愿你少一丝烦恼，多一份顺心</span>
             <span class="icon-right"><i class="fas fa-star"></i></span>
         </div>
 
+        <!-- ===== 视频区域 ===== -->
         <div class="video-wrapper" id="videoWrapper">
             <video id="birthdayVideo"
                    controls
@@ -772,6 +792,9 @@
                    webkit-playsinline
                    x5-playsinline
                    x5-video-player-type="h5"
+                   x5-video-player-fullscreen="true"
+                   controlslist="nodownload nofullscreen noremoteplayback"
+                   disablePictureInPicture
                    style="object-fit: contain;">
                 <source src="mobri.mp4" type="video/mp4">
                 您的浏览器不支持视频播放。
@@ -785,9 +808,9 @@
 
         <div class="message" id="greeting">
             <i class="fas fa-heart" style="color:#f472b6;font-size:0.6em;margin-right:6px;"></i>
-            祝 <span class="highlight">慧慧妹妹</span> 生日快乐！
+            祝 <span class="highlight">段慧超小朋友</span> 生日快乐！
             <span class="tiny">
-                <i class="fas fa-feather-alt"></i> 愿你前程似锦，所愿皆成真 <i class="fas fa-feather-alt"></i>
+                <i class="fas fa-feather-alt"></i> 愿你平平安安，所愿皆灵 <i class="fas fa-feather-alt"></i>
             </span>
         </div>
 
@@ -803,7 +826,6 @@
             </button>
         </div>
 
-        <!-- 低调的页脚 -->
         <div class="footer-hint">
             <i class="fas fa-wand-sparkles"></i>
             <span>小狗要</span>
@@ -842,7 +864,7 @@
 
     <script>
         // ============================================================
-        //  性能优化 + 副标题对称换行修复
+        //  星星、彩带、音乐等（保持不变）
         // ============================================================
 
         (function createStars() {
@@ -873,6 +895,20 @@
         let videoStarted = false;
         let userInteracted = false;
         let wasVideoPlaying = false;
+
+        // ===== ✦ 核心修复：仅当视频结束时添加 .ended 类，用于隐藏重播按钮 =====
+        video.addEventListener('ended', function() {
+            // 不重置 currentTime，保留最后一帧画面
+            this.classList.add('ended');
+        });
+
+        // 当视频开始播放（包括用户点击重播）时，移除 ended 类，恢复显示正常控件
+        video.addEventListener('play', function() {
+            this.classList.remove('ended');
+        });
+
+        // 如果用户通过拖动进度条回到开头或中间，也要移除 ended 类（play 事件会触发）
+        // 但若视频已结束，用户点击播放按钮会触发 play 事件，因此没问题。
 
         function setVideoVolume() {
             if (video.volume !== undefined) video.volume = 0.9;
@@ -928,11 +964,7 @@
 
         document.addEventListener('click', startExperienceAfterInteraction, { once: true, capture: true });
 
-        video.addEventListener('play', () => {
-            videoStarted = true;
-            setVideoVolume();
-            if (!audioStarted) startAudio();
-        });
+        // 注意：video 的 play 事件已经在上方定义，用于移除 .ended
 
         video.addEventListener('loadedmetadata', setVideoVolume);
 
@@ -966,7 +998,7 @@
             updateMusicUI();
         });
 
-        // ----- 彩带系统（极致流畅 + 持续氛围） -----
+        // ===== 彩带系统（不变） =====
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let W, H;
@@ -1220,7 +1252,7 @@
             }, 1000);
         }, 1000);
 
-        // ===== 礼物卡控制 =====
+        // ===== 礼物卡控制（不变） =====
         const giftModal = document.getElementById('giftModal');
         const giftBtn = document.getElementById('giftBtn');
         const closeModalBtn = document.getElementById('closeModalBtn');
@@ -1294,7 +1326,7 @@
             if (fireworksTimer) clearInterval(fireworksTimer);
         });
 
-        console.log('🎂 慧慧妹妹生日快乐！页脚已恢复低调，保持可读。');
+        console.log('🎂 慧慧妹妹生日快乐！视频结束后只隐藏重播按钮，画面保留最后一帧。');
     </script>
 </body>
 </html>
