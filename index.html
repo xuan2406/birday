@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>慧慧妹妹的生日会</title>
+    <meta name="description" content="祝慧慧妹妹生日快乐，愿你今天开心，也愿往后的每一天都顺心。">
+    <meta name="theme-color" content="#1a0a2e">
+    <!-- 微信分享卡片配置 -->
+    <meta property="og:title" content="慧慧妹妹的生日会 🎂" />
+    <meta property="og:description" content="愿你所愿皆成真，天天开心！" />
+    <meta property="og:image" content="cake.png" />
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+
+    <!-- Font Awesome 6 (免费版) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== 全局重置 & 字体 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #1a0a2e 0%, #2d1b4e 40%, #1a0a2e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+            overflow-x: hidden;
+            padding: 20px;
+            position: relative;
+            padding-top: env(safe-area-inset-top, 20px);
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+
+        /* ===== 背景光晕 ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -30%;
+            left: -20%;
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: orbMove 12s ease-in-out infinite alternate;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -30%;
+            right: -20%;
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: orbMove 15s ease-in-out infinite alternate-reverse;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes orbMove {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, 30px) scale(1.1); }
+        }
+
+        /* ===== 主卡片 ===== */
+        .card {
+            position: relative;
+            max-width: 720px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 56px;
+            padding: 40px 35px 50px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            text-align: center;
+            z-index: 2;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 40px rgba(251, 191, 36, 0.05), inset 0 0 0 1px rgba(255, 215, 0, 0.2);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 15%;
+            right: 15%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #fbbf24, #f59e0b, #fbbf24, transparent);
+            border-radius: 100%;
+            filter: blur(1.5px);
+            opacity: 0.8;
+        }
+
+        /* ===== 蛋糕容器（放在最上方） ===== */
+        .cake-wrapper {
+            margin: 0 auto 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: clamp(140px, 30vw, 220px);
+            filter: drop-shadow(0 12px 40px rgba(251, 191, 36, 0.15));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .cake-wrapper img {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* ===== 标题 ===== */
+        .title {
+            font-size: clamp(2.2rem, 9vw, 4.8rem);
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #fcd34d, #fbbf24, #f59e0b, #fbbf24);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shimmer 4s ease-in-out infinite;
+            text-shadow: 0 0 40px rgba(251, 191, 36, 0.15);
+            margin-bottom: 4px;
+        }
+        .title i {
+            font-size: 0.8em;
+            margin: 0 4px;
+            background: inherit;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: inherit;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: clamp(0.8rem, 2.5vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: 300;
+            letter-spacing: 6px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.06);
+            padding-bottom: 14px;
+        }
+        .subtitle i {
+            margin: 0 6px;
+            opacity: 0.5;
+            font-size: 0.8em;
+        }
+
+        /* ===== 视频容器 ===== */
+        .video-wrapper {
+            margin: 16px 0 16px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.08);
+            position: relative;
+            transition: filter 0.4s ease, opacity 0.4s ease;
+        }
+        .video-wrapper::after {
+            content: '\f04b';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255,255,255,0.05);
+            font-size: 4rem;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .video-wrapper.blurred {
+            filter: blur(6px) brightness(0.5);
+            opacity: 0.6;
+            transform: scale(0.98);
+        }
+
+        .video-wrapper video {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            max-height: 70dvh;
+            object-fit: contain;
+            background: #000;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== 祝福语 ===== */
+        .message {
+            font-size: clamp(1.1rem, 4vw, 2rem);
+            font-weight: 600;
+            color: #fff;
+            margin: 18px 0 12px;
+            min-height: 3.2rem;
+            line-height: 1.6;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+        }
+        .message .highlight {
+            background: linear-gradient(135deg, #fcd34d, #fbbf24);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        .message .tiny {
+            font-size: 0.55em;
+            opacity: 0.6;
+            font-weight: 300;
+            display: block;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+        .message .tiny i {
+            margin: 0 4px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        /* ===== 按钮组 ===== */
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .actions button {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 60px;
+            padding: 12px 22px;
+            min-height: 48px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 1 auto;
+        }
+        .actions button i {
+            font-size: 1.1em;
+        }
+
+        .actions button:hover {
+            background: rgba(251, 191, 36, 0.1);
+            border-color: rgba(251, 191, 36, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        .actions button:active {
+            transform: scale(0.95);
+        }
+
+        .actions .btn-primary {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-color: transparent;
+            color: #1a0a2e;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.15);
+        }
+
+        .actions .btn-primary:hover {
+            background: linear-gradient(135deg, #fcd34d, #fbbf24);
+            border-color: transparent;
+            box-shadow: 0 8px 35px rgba(251, 191, 36, 0.3);
+            color: #1a0a2e;
+        }
+
+        /* ===== 音频关闭按钮 ===== */
+        #audioCloseBtn {
+            position: fixed;
+            top: max(16px, env(safe-area-inset-top, 16px));
+            right: 20px;
+            z-index: 99999;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.6);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #audioCloseBtn i {
+            font-size: 1.2rem;
+        }
+
+        #audioCloseBtn:hover {
+            background: rgba(255, 70, 70, 0.25);
+            border-color: rgba(255, 100, 100, 0.4);
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        #audioCloseBtn.hidden {
+            display: none;
+        }
+
+        /* ===== 礼物贺卡按钮 ===== */
+        .gift-button-wrapper {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #giftBtn {
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            border: none;
+            border-radius: 80px;
+            padding: 14px 32px;
+            min-height: 56px;
+            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 8px 30px rgba(236, 72, 153, 0.25);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 1px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        #giftBtn i {
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+            color: #fff;
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.3));
+        }
+
+        #giftBtn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 16px 50px rgba(236, 72, 153, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ===== 礼物贺卡模态框 ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 999999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: linear-gradient(160deg, rgba(45, 27, 78, 0.95), rgba(26, 10, 46, 0.98));
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            border-radius: 40px;
+            padding: 36px 28px 32px;
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8), 0 0 60px rgba(251, 191, 36, 0.05);
+            position: relative;
+            animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-card .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-card .close-modal:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .modal-card .gift-icon-big {
+            font-size: clamp(3.6rem, 12vw, 4.8rem);
+            display: block;
+            margin-bottom: 8px;
+        }
+        .modal-card .gift-icon-big i {
+            color: #fbbf24;
+            filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.5));
+        }
+
+        .modal-card h2 {
+            font-size: clamp(1.6rem, 6vw, 2.2rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #fcd34d, #f59e0b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .modal-card h2 i {
+            margin-right: 8px;
+            color: #f472b6;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+
+        .modal-card .desc {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-top: 1px solid rgba(255, 215, 0, 0.06);
+            padding-top: 10px;
+        }
+
+        .modal-card .item-list {
+            text-align: left;
+            display: inline-block;
+            margin: 6px auto;
+        }
+        .modal-card .item-list p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            line-height: 2.2;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 400;
+        }
+        .modal-card .item-list p i {
+            color: #34d399;
+            font-size: 1.1rem;
+            width: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .modal-card .signature {
+            margin-top: 20px;
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            font-weight: 600;
+            font-family: 'Georgia', 'Segoe UI', cursive;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #fcd34d, #fbbf24);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            border-top: 1px solid rgba(255, 215, 0, 0.08);
+            padding-top: 14px;
+        }
+        .modal-card .signature i {
+            margin: 0 6px;
+            color: #f472b6;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes scaleIn {
+            from { transform: scale(0.9) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        /* ===== 画布 ===== */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ===== 背景星星 ===== */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+            opacity: 0.3;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.1; transform: scale(0.8); }
+            100% { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        /* ===== 底部小提示 ===== */
+        .footer-hint {
+            margin-top: 16px;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.12);
+            letter-spacing: 2px;
+            user-select: none;
+        }
+        .footer-hint i {
+            margin: 0 4px;
+            font-size: 0.6rem;
+        }
+
+        /* ===== 响应式增强 (手机适配) ===== */
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 16px 32px;
+                border-radius: 36px;
+            }
+            .video-wrapper video {
+                max-height: 50vh;
+                max-height: 50dvh;
+            }
+            .cake-wrapper {
+                height: clamp(120px, 25vw, 180px);
+            }
+
+            .actions {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+                width: 100%;
+            }
+            .actions button {
+                flex: unset;
+                width: 100%;
+                padding: 10px 6px;
+                min-height: 44px;
+                justify-content: center;
+                font-size: clamp(0.7rem, 2.2vw, 0.85rem);
+                border-radius: 40px;
+                gap: 4px;
+            }
+            .actions button i {
+                font-size: 1rem;
+            }
+
+            #giftBtn {
+                padding: 12px 24px;
+                min-height: 50px;
+                gap: 8px;
+            }
+            .modal-card {
+                padding: 28px 18px 26px;
+                border-radius: 32px;
+            }
+            .modal-card .item-list p {
+                font-size: 0.95rem;
+                line-height: 2;
+            }
+            #audioCloseBtn {
+                width: 40px;
+                height: 40px;
+                right: 12px;
+                font-size: 16px;
+            }
+            .subtitle {
+                letter-spacing: 4px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .cake-wrapper {
+                height: 100px;
+            }
+            .video-wrapper video {
+                max-height: 40vh;
+                max-height: 40dvh;
+            }
+            .actions button {
+                font-size: 0.65rem;
+                padding: 8px 4px;
+                min-height: 38px;
+            }
+            #giftBtn {
+                font-size: 1rem;
+                padding: 10px 20px;
+                min-height: 44px;
+            }
+            #giftBtn i {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== 背景星星 ===== -->
+    <div class="stars" id="starsContainer"></div>
+
+    <!-- ===== 彩带画布 ===== -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- ===== 音频关闭按钮 ===== -->
+    <button id="audioCloseBtn" title="关闭音乐">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+
+    <!-- ===== 主卡片 ===== -->
+    <div class="card">
+
+        <!-- ★ 蛋糕移到最上方 -->
+        <div class="cake-wrapper">
+            <img src="cake.png" alt="生日蛋糕" />
+        </div>
+
+        <div class="title">
+            <i class="fas fa-cake-candles"></i>
+            生日快乐
+            <i class="fas fa-cake-candles"></i>
+        </div>
+        <div class="subtitle">
+            <i class="fas fa-star"></i>
+            愿你今天开心，也愿往后的每一天都顺心
+            <i class="fas fa-star"></i>
+        </div>
+
+        <div class="video-wrapper" id="videoWrapper">
+            <video id="birthdayVideo"
+                   controls
+                   preload="metadata"
+                   autoplay
+                   playsinline
+                   webkit-playsinline
+                   x5-playsinline
+                   x5-video-player-type="h5"
+                   style="object-fit: contain;">
+                <source src="mobri.mp4" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+        </div>
+
+        <div class="message" id="greeting">
+            <i class="fas fa-heart" style="color:#f472b6;font-size:0.6em;margin-right:6px;"></i>
+            祝 <span class="highlight">慧慧妹妹</span> 生日快乐！
+            <span class="tiny">
+                <i class="fas fa-feather-alt"></i> 愿你前程似锦，所愿皆成真 <i class="fas fa-feather-alt"></i>
+            </span>
+        </div>
+
+        <div class="actions">
+            <button id="fireBtn" class="btn-primary">
+                <i class="fas fa-rocket"></i> 放烟花
+            </button>
+            <button id="confettiBtn">
+                <i class="fas fa-sparkles"></i> 满天星
+            </button>
+            <button id="musicToggleBtn">
+                <i class="fas fa-music"></i> <span>静音</span>
+            </button>
+        </div>
+
+        <!-- 小提示 -->
+        <div class="footer-hint">
+            <i class="fas fa-wand-sparkles"></i> 生日快乐 · 天天开心 <i class="fas fa-wand-sparkles"></i>
+        </div>
+
+        <!-- 礼物贺卡按钮 -->
+        <div class="gift-button-wrapper">
+            <button id="giftBtn">
+                <i class="fas fa-gift"></i> 打开礼物
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ===== 礼物贺卡模态框 ===== -->
+    <div class="modal-overlay" id="giftModal">
+        <div class="modal-card">
+            <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
+            <span class="gift-icon-big"><i class="fas fa-gift"></i></span>
+            <h2><i class="fas fa-car"></i> 车车装饰全包卡</h2>
+            <div class="desc">✦ 凭此卡可兑换 ✦</div>
+            <div class="item-list">
+                <p><i class="fas fa-check-circle"></i> 电动车所有装饰</p>
+                <p><i class="fas fa-check-circle"></i> 包含挡风雨披等装备</p>
+                <p><i class="fas fa-check-circle"></i> 选购后凭此卡全额报销</p>
+            </div>
+            <div class="signature">
+                <i class="fas fa-heart"></i> 永远爱你的哥哥 <i class="fas fa-heart"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 音频（循环播放） ===== -->
+    <audio id="bgm" src="birthday.mp3" preload="auto" loop></audio>
+
+    <script>
+        // ============================================================
+        //  微信 H5 专属适配 + 原有完整功能
+        //  1. 背景星星
+        //  2. 视频与音频联动 + 音量调节（视频0.9，背景音乐0.5）
+        //  3. 彩带系统
+        //  4. 页面加载10秒后自动触发彩带+烟花（持续10秒）
+        //  5. 音频控制
+        //  6. 礼物卡打开时模糊视频、移除控制栏
+        //  7. 微信同层播放 (x5-video-player-type)
+        //  8. 蛋糕与标题互换位置
+        // ============================================================
+
+        (function createStars() {
+            const container = document.getElementById('starsContainer');
+            for (let i = 0; i < 120; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = 1 + Math.random() * 3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+                star.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(star);
+            }
+        })();
+
+        const video = document.getElementById('birthdayVideo');
+        const videoWrapper = document.getElementById('videoWrapper');
+        const audio = document.getElementById('bgm');
+        const closeBtn = document.getElementById('audioCloseBtn');
+        const musicToggleBtn = document.getElementById('musicToggleBtn');
+        const musicToggleSpan = musicToggleBtn.querySelector('span');
+
+        // ===== 微信 / 手机 H5 音视频策略 =====
+        let audioStarted = false;
+        let videoStarted = false;
+        let userInteracted = false;
+
+        function setVideoVolume() {
+            if (video.volume !== undefined) video.volume = 0.9;
+        }
+
+        function setAudioVolume() {
+            if (audio.volume !== undefined) audio.volume = 0.5;
+        }
+
+        function updateMusicUI() {
+            musicToggleSpan.textContent = audio.paused ? '播放' : '静音';
+            closeBtn.classList.toggle('hidden', audio.paused);
+        }
+
+        function startAudio() {
+            setAudioVolume();
+            return audio.play().then(() => {
+                audioStarted = true;
+                updateMusicUI();
+            }).catch(() => {
+                audioStarted = false;
+                updateMusicUI();
+            });
+        }
+
+        function startVideoWithSound() {
+            setVideoVolume();
+            return video.play().then(() => {
+                videoStarted = true;
+                return true;
+            }).catch(() => {
+                videoStarted = false;
+                return false;
+            });
+        }
+
+        function startExperienceAfterInteraction() {
+            if (userInteracted) return;
+            userInteracted = true;
+
+            const videoPromise = startVideoWithSound();
+            const audioPromise = startAudio();
+
+            Promise.allSettled([videoPromise, audioPromise]).then(() => {
+                updateMusicUI();
+            });
+        }
+
+        window.addEventListener('load', () => {
+            setVideoVolume();
+            startVideoWithSound().then(success => {
+                if (success) {
+                    startAudio();
+                }
+            });
+        });
+
+        document.addEventListener('click', startExperienceAfterInteraction, {
+            once: true,
+            capture: true
+        });
+
+        video.addEventListener('play', () => {
+            videoStarted = true;
+            setVideoVolume();
+            if (!audioStarted) startAudio();
+        });
+
+        video.addEventListener('loadedmetadata', setVideoVolume);
+
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            audio.pause();
+            audio.currentTime = 0;
+            audioStarted = false;
+            updateMusicUI();
+        });
+
+        musicToggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+
+            if (audio.paused) {
+                startAudio();
+            } else {
+                audio.pause();
+                audioStarted = false;
+                updateMusicUI();
+            }
+        });
+
+        audio.addEventListener('play', () => {
+            setAudioVolume();
+            audioStarted = true;
+            updateMusicUI();
+        });
+
+        audio.addEventListener('pause', () => {
+            audioStarted = false;
+            updateMusicUI();
+        });
+
+        // ----- 彩带系统 -----
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let W, H;
+
+        function resizeCanvas() {
+            W = window.innerWidth;
+            H = window.innerHeight;
+            canvas.width = W;
+            canvas.height = H;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const SPEED_FACTOR = 1.0;
+
+        function random(min, max) { return Math.random() * (max - min) + min; }
+
+        function randomColor(soft = true) {
+            if (soft) {
+                const h = random(0, 360);
+                const s = random(60, 85);
+                const l = random(60, 80);
+                return `hsl(${h}, ${s}%, ${l}%)`;
+            } else {
+                const h = random(0, 360);
+                const s = random(80, 100);
+                const l = random(55, 75);
+                return `hsl(${h}, ${s}%, ${l}%)`;
+            }
+        }
+
+        class Particle {
+            constructor(options = {}) {
+                this.x = options.x || random(0, W);
+                this.y = options.y || random(-H * 0.2, -10);
+                this.vx = (options.vx || random(-1.2, 1.2)) * SPEED_FACTOR;
+                this.vy = (options.vy || random(1.2, 3.5)) * SPEED_FACTOR;
+                this.size = options.size || random(4, 10);
+                this.shape = options.shape || ['rect', 'circle', 'star'][Math.floor(random(0, 3))];
+                this.color = options.color || randomColor(true);
+                this.rotation = random(0, 360);
+                this.rotSpeed = random(-3, 3);
+                this.opacity = random(0.7, 1);
+                this.life = 1;
+                this.decay = options.decay || 0.002;
+                this.gravity = (options.gravity || 0.05) * SPEED_FACTOR;
+                this.friction = options.friction || 0.99;
+                this.isFirework = options.isFirework || false;
+                this.starPoints = 5;
+                this.starOuter = this.size;
+                this.starInner = this.size * 0.4;
+            }
+
+            update() {
+                this.vx *= this.friction;
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.rotation += this.rotSpeed;
+                if (this.isFirework) {
+                    this.life -= this.decay;
+                    this.opacity = this.life;
+                    this.size *= 0.998;
+                } else {
+                    this.vx += Math.sin(this.y * 0.01) * 0.02;
+                }
+                if (!this.isFirework) {
+                    if (this.y > H + 50) {
+                        this.y = -20;
+                        this.x = random(0, W);
+                        this.vx = random(-1.2, 1.2) * SPEED_FACTOR;
+                        this.vy = random(1.2, 3.5) * SPEED_FACTOR;
+                        this.color = randomColor(true);
+                        this.size = random(4, 10);
+                        this.shape = ['rect', 'circle', 'star'][Math.floor(random(0, 3))];
+                        this.opacity = random(0.7, 1);
+                    }
+                    if (this.x < -50) this.x = W + 30;
+                    if (this.x > W + 50) this.x = -30;
+                }
+            }
+
+            draw(ctx) {
+                if (this.opacity <= 0.01 || (this.isFirework && this.life <= 0)) return;
+                ctx.save();
+                ctx.globalAlpha = Math.min(this.opacity, 1);
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+
+                if (this.isFirework) {
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 12;
+                } else {
+                    ctx.shadowColor = 'rgba(0,0,0,0)';
+                }
+
+                ctx.fillStyle = this.color;
+                ctx.strokeStyle = this.color;
+
+                const s = this.size;
+                if (this.shape === 'rect') {
+                    ctx.fillRect(-s / 2, -s / 3, s, s * 0.6);
+                } else if (this.shape === 'circle') {
+                    ctx.beginPath();
+                    ctx.arc(0, 0, s / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                } else if (this.shape === 'star') {
+                    ctx.beginPath();
+                    for (let i = 0; i < this.starPoints * 2; i++) {
+                        const radius = i % 2 === 0 ? this.starOuter : this.starInner;
+                        const angle = (i / (this.starPoints * 2)) * Math.PI * 2 - Math.PI / 2;
+                        const x = Math.cos(angle) * radius;
+                        const y = Math.sin(angle) * radius;
+                        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }
+
+        let particles = [];
+        let confettiRunning = false;
+        let animId = null;
+        let spawnInterval = null;
+        let fireworksTimer = null;
+
+        function startConfetti(count = 150) {
+            if (confettiRunning) {
+                for (let i = 0; i < count * 0.3; i++) {
+                    particles.push(new Particle({ y: random(-H * 0.2, 0) }));
+                }
+                return;
+            }
+            confettiRunning = true;
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle({ y: random(-H * 0.5, 0) }));
+            }
+            if (spawnInterval) clearInterval(spawnInterval);
+            spawnInterval = setInterval(() => {
+                if (!confettiRunning) return;
+                for (let i = 0; i < 4; i++) {
+                    particles.push(new Particle({ y: -20 }));
+                }
+                if (particles.length > 400) {
+                    particles.splice(0, 50);
+                }
+            }, 400);
+
+            animate();
+        }
+
+        function stopConfetti() {
+            confettiRunning = false;
+            if (spawnInterval) {
+                clearInterval(spawnInterval);
+                spawnInterval = null;
+            }
+            particles.forEach(p => {
+                if (!p.isFirework) p.decay = 0.01;
+            });
+            setTimeout(() => {
+                if (!confettiRunning) {
+                    particles = particles.filter(p => p.isFirework);
+                }
+            }, 2000);
+        }
+
+        function fireFireworks(centerX, centerY, count = 100) {
+            const cx = centerX || random(W * 0.2, W * 0.8);
+            const cy = centerY || random(H * 0.2, H * 0.6);
+            const colorBase = randomColor(false);
+            for (let i = 0; i < count; i++) {
+                const angle = random(0, Math.PI * 2);
+                const speed = random(2, 8) * SPEED_FACTOR;
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed - random(0, 1) * SPEED_FACTOR;
+                const size = random(3, 7);
+                const hueShift = random(-30, 30);
+                const color = `hsl(${(parseInt(colorBase.match(/\d+/)[0]) + hueShift + 360) % 360}, 90%, ${random(60, 80)}%)`;
+                const p = new Particle({
+                    x: cx,
+                    y: cy,
+                    vx: vx,
+                    vy: vy,
+                    size: size,
+                    shape: 'circle',
+                    color: color,
+                    gravity: 0.08 * SPEED_FACTOR,
+                    friction: 0.97,
+                    isFirework: true,
+                    decay: random(0.005, 0.015),
+                    opacity: 1
+                });
+                particles.push(p);
+            }
+            for (let i = 0; i < 20; i++) {
+                const p = new Particle({
+                    x: cx + random(-10, 10),
+                    y: cy + random(-10, 10),
+                    vx: random(-1, 1) * SPEED_FACTOR,
+                    vy: random(-1, 1) * SPEED_FACTOR,
+                    size: random(2, 5),
+                    shape: 'circle',
+                    color: '#fff',
+                    gravity: 0.02 * SPEED_FACTOR,
+                    friction: 0.95,
+                    isFirework: true,
+                    decay: 0.03,
+                    opacity: 1
+                });
+                particles.push(p);
+            }
+            if (!confettiRunning && !animId) {
+                animate();
+            }
+        }
+
+        function startFireworksFor10Seconds() {
+            if (fireworksTimer) {
+                clearInterval(fireworksTimer);
+                fireworksTimer = null;
+            }
+            fireFireworks();
+            let count = 0;
+            const maxCount = Math.floor(10 / 0.3);
+            fireworksTimer = setInterval(() => {
+                if (count >= maxCount) {
+                    clearInterval(fireworksTimer);
+                    fireworksTimer = null;
+                    return;
+                }
+                fireFireworks();
+                count++;
+            }, 300);
+            setTimeout(() => {
+                if (fireworksTimer) {
+                    clearInterval(fireworksTimer);
+                    fireworksTimer = null;
+                }
+            }, 10200);
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, W, H);
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.update();
+                p.draw(ctx);
+                if (p.isFirework && (p.life <= 0 || p.opacity <= 0.01)) {
+                    particles.splice(i, 1);
+                }
+                if (!p.isFirework && p.opacity <= 0.01) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            if (particles.length === 0 && !confettiRunning) {
+                if (animId) {
+                    cancelAnimationFrame(animId);
+                    animId = null;
+                }
+                return;
+            }
+
+            animId = requestAnimationFrame(animate);
+        }
+
+        // ===== 页面加载10秒后自动触发 =====
+        setTimeout(() => {
+            startConfetti(180);
+            startFireworksFor10Seconds();
+        }, 10000);
+
+        // ===== ★ 礼物卡控制 =====
+        const giftModal = document.getElementById('giftModal');
+        const giftBtn = document.getElementById('giftBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        function openGiftModal() {
+            video.removeAttribute('controls');
+            videoWrapper.classList.add('blurred');
+            giftModal.classList.add('active');
+        }
+
+        function closeGiftModal() {
+            video.setAttribute('controls', 'controls');
+            videoWrapper.classList.remove('blurred');
+            giftModal.classList.remove('active');
+        }
+
+        giftBtn.addEventListener('click', openGiftModal);
+        closeModalBtn.addEventListener('click', closeGiftModal);
+
+        giftModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeGiftModal();
+            }
+        });
+
+        // ---- 按钮绑定 ----
+        document.getElementById('fireBtn').addEventListener('click', startFireworksFor10Seconds);
+
+        document.getElementById('confettiBtn').addEventListener('click', function() {
+            if (confettiRunning) {
+                for (let i = 0; i < 80; i++) {
+                    particles.push(new Particle({ y: random(-H * 0.2, 0) }));
+                }
+            } else {
+                startConfetti(180);
+                setTimeout(() => {
+                    if (confettiRunning && spawnInterval) {
+                        clearInterval(spawnInterval);
+                        spawnInterval = setInterval(() => {
+                            if (!confettiRunning) return;
+                            for (let i = 0; i < 2; i++) {
+                                particles.push(new Particle({ y: -20 }));
+                            }
+                        }, 600);
+                    }
+                }, 8000);
+            }
+        });
+
+        document.querySelector('.card').addEventListener('dblclick', startFireworksFor10Seconds);
+
+        window.addEventListener('beforeunload', function() {
+            audio.pause();
+            video.pause();
+            confettiRunning = false;
+            if (spawnInterval) clearInterval(spawnInterval);
+            if (animId) cancelAnimationFrame(animId);
+            if (fireworksTimer) clearInterval(fireworksTimer);
+        });
+
+        console.log('🎂 慧慧妹妹生日快乐！蛋糕已移到最上方，微信 H5 已适配。');
+    </script>
+</body>
+</html>
