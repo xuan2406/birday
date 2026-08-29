@@ -4,19 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>慧慧妹妹的生日会</title>
-    <meta name="description" content="祝慧慧妹妹生日快乐，愿你今天开心，也愿往后的每一天都顺心。">
+    <meta name="description" content="祝慧慧妹妹生日快乐，愿你少一丝烦恼，多一份顺心。">
     <meta name="theme-color" content="#1a0a2e">
-    <!-- 微信分享卡片配置 -->
     <meta property="og:title" content="慧慧妹妹的生日会 🎂" />
     <meta property="og:description" content="愿你所愿皆成真，天天开心！" />
     <meta property="og:image" content="cake.png" />
     <meta property="og:url" content="" />
     <meta property="og:type" content="website" />
 
-    <!-- Font Awesome 6 (免费版) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ===== 全局重置 & 字体 ===== */
         * {
             margin: 0;
             padding: 0;
@@ -37,7 +34,6 @@
             padding-bottom: env(safe-area-inset-bottom, 20px);
         }
 
-        /* ===== 背景光晕 ===== */
         body::before {
             content: '';
             position: fixed;
@@ -70,7 +66,6 @@
             100% { transform: translate(40px, 30px) scale(1.1); }
         }
 
-        /* ===== 主卡片 ===== */
         .card {
             position: relative;
             max-width: 720px;
@@ -105,7 +100,6 @@
             opacity: 0.8;
         }
 
-        /* ===== 蛋糕容器（放在最上方） ===== */
         .cake-wrapper {
             margin: 0 auto 12px;
             display: flex;
@@ -130,7 +124,6 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* ===== 标题 ===== */
         .title {
             font-size: clamp(2.2rem, 9vw, 4.8rem);
             font-weight: 800;
@@ -158,22 +151,37 @@
             50% { background-position: 100% 50%; }
         }
 
+        /* 副标题 - 使用flex布局，图标固定两端，文字居中自动换行 */
         .subtitle {
-            font-size: clamp(0.8rem, 2.5vw, 1.4rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: clamp(0.75rem, 2.5vw, 1.2rem);
             color: rgba(255, 255, 255, 0.45);
             font-weight: 300;
-            letter-spacing: 6px;
+            letter-spacing: 4px;
             margin-bottom: 24px;
             border-bottom: 1px solid rgba(255, 215, 0, 0.06);
-            padding-bottom: 14px;
+            padding: 0 0 14px 0;
+            flex-wrap: nowrap;
         }
-        .subtitle i {
-            margin: 0 6px;
-            opacity: 0.5;
+        .subtitle .icon-left,
+        .subtitle .icon-right {
+            flex-shrink: 0;
             font-size: 0.8em;
+            opacity: 0.5;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .subtitle .text {
+            text-align: center;
+            word-break: break-word;
+            line-height: 1.6;
+            flex: 0 1 auto;
+            max-width: 100%;
+            padding: 0 2px;
         }
 
-        /* ===== 视频容器 ===== */
         .video-wrapper {
             margin: 16px 0 16px;
             border-radius: 24px;
@@ -183,6 +191,7 @@
             border: 1px solid rgba(255, 215, 0, 0.08);
             position: relative;
             transition: filter 0.4s ease, opacity 0.4s ease;
+            min-height: 120px;
         }
         .video-wrapper::after {
             content: '\f04b';
@@ -192,7 +201,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: rgba(255,255,255,0.05);
+            color: rgba(255, 255, 255, 0.05);
             font-size: 4rem;
             pointer-events: none;
             z-index: 0;
@@ -202,6 +211,41 @@
             filter: blur(6px) brightness(0.5);
             opacity: 0.6;
             transform: scale(0.98);
+        }
+
+        .video-placeholder {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 24px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            letter-spacing: 1px;
+            gap: 6px;
+            padding: 20px;
+            transition: opacity 0.3s ease;
+        }
+        .video-placeholder i {
+            font-size: clamp(2.2rem, 6vw, 3.2rem);
+            color: #fbbf24;
+            margin-bottom: 4px;
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.2));
+        }
+        .video-placeholder .hint {
+            font-size: 0.7em;
+            opacity: 0.5;
+            margin-top: 2px;
+        }
+        .video-placeholder.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .video-wrapper video {
@@ -216,7 +260,10 @@
             z-index: 1;
         }
 
-        /* ===== 祝福语 ===== */
+        .video-wrapper video.hidden-video {
+            display: none !important;
+        }
+
         .message {
             font-size: clamp(1.1rem, 4vw, 2rem);
             font-weight: 600;
@@ -247,7 +294,6 @@
             opacity: 0.8;
         }
 
-        /* ===== 按钮组 ===== */
         .actions {
             display: flex;
             flex-wrap: wrap;
@@ -305,7 +351,6 @@
             color: #1a0a2e;
         }
 
-        /* ===== 音频关闭按钮 ===== */
         #audioCloseBtn {
             position: fixed;
             top: max(16px, env(safe-area-inset-top, 16px));
@@ -341,7 +386,6 @@
             display: none;
         }
 
-        /* ===== 礼物贺卡按钮 ===== */
         .gift-button-wrapper {
             margin-top: 28px;
             display: flex;
@@ -379,7 +423,6 @@
             border-color: rgba(255, 255, 255, 0.3);
         }
 
-        /* ===== 礼物贺卡模态框 ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -526,7 +569,6 @@
             to { transform: scale(1) translateY(0); opacity: 1; }
         }
 
-        /* ===== 画布 ===== */
         #confetti-canvas {
             position: fixed;
             top: 0;
@@ -537,7 +579,6 @@
             z-index: 9999;
         }
 
-        /* ===== 背景星星 ===== */
         .stars {
             position: fixed;
             top: 0;
@@ -564,20 +605,35 @@
             100% { opacity: 0.8; transform: scale(1.2); }
         }
 
-        /* ===== 底部小提示 ===== */
+        /* ===== 页脚 - 低调但清晰 ===== */
         .footer-hint {
             margin-top: 16px;
-            font-size: 0.65rem;
-            color: rgba(255, 255, 255, 0.12);
+            font-size: clamp(0.65rem, 2vw, 0.8rem);
+            color: rgba(255, 255, 255, 0.45);
             letter-spacing: 2px;
             user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 300;
+            transition: color 0.2s;
         }
         .footer-hint i {
-            margin: 0 4px;
-            font-size: 0.6rem;
+            font-size: 0.75em;
+            opacity: 0.35;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .footer-hint .hint-dot {
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 0.5em;
+        }
+        .footer-hint .hint-heart {
+            color: #f472b6;
+            opacity: 0.4;
+            font-size: 0.7em;
         }
 
-        /* ===== 响应式增强 (手机适配) ===== */
         @media (max-width: 480px) {
             .card {
                 padding: 24px 16px 32px;
@@ -631,7 +687,22 @@
                 font-size: 16px;
             }
             .subtitle {
-                letter-spacing: 4px;
+                gap: 6px;
+                font-size: clamp(0.7rem, 2.8vw, 1rem);
+                letter-spacing: 2px;
+                padding-bottom: 12px;
+            }
+            .video-placeholder {
+                font-size: clamp(0.8rem, 2vw, 1rem);
+            }
+            .video-placeholder i {
+                font-size: clamp(1.8rem, 5vw, 2.6rem);
+            }
+            .footer-hint {
+                font-size: clamp(0.6rem, 1.8vw, 0.75rem);
+                gap: 6px;
+                letter-spacing: 1px;
+                margin-top: 12px;
             }
         }
 
@@ -656,26 +727,25 @@
             #giftBtn i {
                 font-size: 1.4rem;
             }
+            .footer-hint {
+                font-size: 0.55rem;
+                gap: 4px;
+                letter-spacing: 1px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== 背景星星 ===== -->
     <div class="stars" id="starsContainer"></div>
-
-    <!-- ===== 彩带画布 ===== -->
     <canvas id="confetti-canvas"></canvas>
 
-    <!-- ===== 音频关闭按钮 ===== -->
     <button id="audioCloseBtn" title="关闭音乐">
         <i class="fas fa-volume-mute"></i>
     </button>
 
-    <!-- ===== 主卡片 ===== -->
     <div class="card">
 
-        <!-- ★ 蛋糕移到最上方 -->
         <div class="cake-wrapper">
             <img src="cake.png" alt="生日蛋糕" />
         </div>
@@ -685,10 +755,12 @@
             生日快乐
             <i class="fas fa-cake-candles"></i>
         </div>
+
+        <!-- 副标题：图标固定两端，文字居中可换行，保持对称 -->
         <div class="subtitle">
-            <i class="fas fa-star"></i>
-            愿你今天开心，也愿往后的每一天都顺心
-            <i class="fas fa-star"></i>
+            <span class="icon-left"><i class="fas fa-star"></i></span>
+            <span class="text">愿你少一丝烦恼，多一份顺心</span>
+            <span class="icon-right"><i class="fas fa-star"></i></span>
         </div>
 
         <div class="video-wrapper" id="videoWrapper">
@@ -704,6 +776,11 @@
                 <source src="mobri.mp4" type="video/mp4">
                 您的浏览器不支持视频播放。
             </video>
+            <div class="video-placeholder hidden" id="videoPlaceholder">
+                <i class="fas fa-gift"></i>
+                <span>🎵 视频已暂停 · 礼物卡打开中</span>
+                <span class="hint"><i class="fas fa-heart" style="color:#f472b6;"></i> 关闭礼物卡后继续播放 <i class="fas fa-heart" style="color:#f472b6;"></i></span>
+            </div>
         </div>
 
         <div class="message" id="greeting">
@@ -726,12 +803,16 @@
             </button>
         </div>
 
-        <!-- 小提示 -->
+        <!-- 低调的页脚 -->
         <div class="footer-hint">
-            <i class="fas fa-wand-sparkles"></i> 生日快乐 · 天天开心 <i class="fas fa-wand-sparkles"></i>
+            <i class="fas fa-wand-sparkles"></i>
+            <span>小狗要</span>
+            <span class="hint-dot">✦</span>
+            <span>一直黏着你</span>
+            <i class="fas fa-wand-sparkles"></i>
+            <span class="hint-heart"><i class="fas fa-heart"></i></span>
         </div>
 
-        <!-- 礼物贺卡按钮 -->
         <div class="gift-button-wrapper">
             <button id="giftBtn">
                 <i class="fas fa-gift"></i> 打开礼物
@@ -740,7 +821,6 @@
 
     </div>
 
-    <!-- ===== 礼物贺卡模态框 ===== -->
     <div class="modal-overlay" id="giftModal">
         <div class="modal-card">
             <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
@@ -758,20 +838,11 @@
         </div>
     </div>
 
-    <!-- ===== 音频（循环播放） ===== -->
     <audio id="bgm" src="birthday.mp3" preload="auto" loop></audio>
 
     <script>
         // ============================================================
-        //  微信 H5 专属适配 + 原有完整功能
-        //  1. 背景星星
-        //  2. 视频与音频联动 + 音量调节（视频0.9，背景音乐0.5）
-        //  3. 彩带系统
-        //  4. 页面加载10秒后自动触发彩带+烟花（持续10秒）
-        //  5. 音频控制
-        //  6. 礼物卡打开时模糊视频、移除控制栏
-        //  7. 微信同层播放 (x5-video-player-type)
-        //  8. 蛋糕与标题互换位置
+        //  性能优化 + 副标题对称换行修复
         // ============================================================
 
         (function createStars() {
@@ -792,15 +863,16 @@
 
         const video = document.getElementById('birthdayVideo');
         const videoWrapper = document.getElementById('videoWrapper');
+        const placeholder = document.getElementById('videoPlaceholder');
         const audio = document.getElementById('bgm');
         const closeBtn = document.getElementById('audioCloseBtn');
         const musicToggleBtn = document.getElementById('musicToggleBtn');
         const musicToggleSpan = musicToggleBtn.querySelector('span');
 
-        // ===== 微信 / 手机 H5 音视频策略 =====
         let audioStarted = false;
         let videoStarted = false;
         let userInteracted = false;
+        let wasVideoPlaying = false;
 
         function setVideoVolume() {
             if (video.volume !== undefined) video.volume = 0.9;
@@ -840,10 +912,8 @@
         function startExperienceAfterInteraction() {
             if (userInteracted) return;
             userInteracted = true;
-
             const videoPromise = startVideoWithSound();
             const audioPromise = startAudio();
-
             Promise.allSettled([videoPromise, audioPromise]).then(() => {
                 updateMusicUI();
             });
@@ -852,16 +922,11 @@
         window.addEventListener('load', () => {
             setVideoVolume();
             startVideoWithSound().then(success => {
-                if (success) {
-                    startAudio();
-                }
+                if (success) startAudio();
             });
         });
 
-        document.addEventListener('click', startExperienceAfterInteraction, {
-            once: true,
-            capture: true
-        });
+        document.addEventListener('click', startExperienceAfterInteraction, { once: true, capture: true });
 
         video.addEventListener('play', () => {
             videoStarted = true;
@@ -881,7 +946,6 @@
 
         musicToggleBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-
             if (audio.paused) {
                 startAudio();
             } else {
@@ -902,7 +966,7 @@
             updateMusicUI();
         });
 
-        // ----- 彩带系统 -----
+        // ----- 彩带系统（极致流畅 + 持续氛围） -----
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let W, H;
@@ -916,44 +980,35 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        const SPEED_FACTOR = 1.0;
+        const SPEED_FACTOR = 0.85;
+        const MAX_PARTICLES = 120;
 
         function random(min, max) { return Math.random() * (max - min) + min; }
 
         function randomColor(soft = true) {
-            if (soft) {
-                const h = random(0, 360);
-                const s = random(60, 85);
-                const l = random(60, 80);
-                return `hsl(${h}, ${s}%, ${l}%)`;
-            } else {
-                const h = random(0, 360);
-                const s = random(80, 100);
-                const l = random(55, 75);
-                return `hsl(${h}, ${s}%, ${l}%)`;
-            }
+            const h = random(0, 360);
+            const s = soft ? random(60, 80) : random(80, 100);
+            const l = soft ? random(60, 75) : random(55, 70);
+            return `hsl(${h}, ${s}%, ${l}%)`;
         }
 
         class Particle {
             constructor(options = {}) {
                 this.x = options.x || random(0, W);
                 this.y = options.y || random(-H * 0.2, -10);
-                this.vx = (options.vx || random(-1.2, 1.2)) * SPEED_FACTOR;
-                this.vy = (options.vy || random(1.2, 3.5)) * SPEED_FACTOR;
-                this.size = options.size || random(4, 10);
-                this.shape = options.shape || ['rect', 'circle', 'star'][Math.floor(random(0, 3))];
+                this.vx = (options.vx || random(-0.8, 0.8)) * SPEED_FACTOR;
+                this.vy = (options.vy || random(1.0, 2.8)) * SPEED_FACTOR;
+                this.size = options.size || random(3, 6);
+                this.shape = options.shape || (Math.random() > 0.5 ? 'rect' : 'circle');
                 this.color = options.color || randomColor(true);
                 this.rotation = random(0, 360);
-                this.rotSpeed = random(-3, 3);
+                this.rotSpeed = random(-2, 2);
                 this.opacity = random(0.7, 1);
                 this.life = 1;
                 this.decay = options.decay || 0.002;
-                this.gravity = (options.gravity || 0.05) * SPEED_FACTOR;
+                this.gravity = (options.gravity || 0.04) * SPEED_FACTOR;
                 this.friction = options.friction || 0.99;
                 this.isFirework = options.isFirework || false;
-                this.starPoints = 5;
-                this.starOuter = this.size;
-                this.starInner = this.size * 0.4;
             }
 
             update() {
@@ -965,19 +1020,19 @@
                 if (this.isFirework) {
                     this.life -= this.decay;
                     this.opacity = this.life;
-                    this.size *= 0.998;
+                    this.size *= 0.996;
                 } else {
-                    this.vx += Math.sin(this.y * 0.01) * 0.02;
+                    this.vx += Math.sin(this.y * 0.01) * 0.01;
                 }
                 if (!this.isFirework) {
                     if (this.y > H + 50) {
                         this.y = -20;
                         this.x = random(0, W);
-                        this.vx = random(-1.2, 1.2) * SPEED_FACTOR;
-                        this.vy = random(1.2, 3.5) * SPEED_FACTOR;
+                        this.vx = random(-0.8, 0.8) * SPEED_FACTOR;
+                        this.vy = random(1.0, 2.8) * SPEED_FACTOR;
                         this.color = randomColor(true);
-                        this.size = random(4, 10);
-                        this.shape = ['rect', 'circle', 'star'][Math.floor(random(0, 3))];
+                        this.size = random(3, 6);
+                        this.shape = Math.random() > 0.5 ? 'rect' : 'circle';
                         this.opacity = random(0.7, 1);
                     }
                     if (this.x < -50) this.x = W + 30;
@@ -991,37 +1046,22 @@
                 ctx.globalAlpha = Math.min(this.opacity, 1);
                 ctx.translate(this.x, this.y);
                 ctx.rotate((this.rotation * Math.PI) / 180);
-
                 if (this.isFirework) {
                     ctx.shadowColor = this.color;
-                    ctx.shadowBlur = 12;
+                    ctx.shadowBlur = 8;
                 } else {
                     ctx.shadowColor = 'rgba(0,0,0,0)';
                 }
-
                 ctx.fillStyle = this.color;
                 ctx.strokeStyle = this.color;
-
                 const s = this.size;
                 if (this.shape === 'rect') {
                     ctx.fillRect(-s / 2, -s / 3, s, s * 0.6);
-                } else if (this.shape === 'circle') {
+                } else {
                     ctx.beginPath();
                     ctx.arc(0, 0, s / 2, 0, Math.PI * 2);
                     ctx.fill();
-                } else if (this.shape === 'star') {
-                    ctx.beginPath();
-                    for (let i = 0; i < this.starPoints * 2; i++) {
-                        const radius = i % 2 === 0 ? this.starOuter : this.starInner;
-                        const angle = (i / (this.starPoints * 2)) * Math.PI * 2 - Math.PI / 2;
-                        const x = Math.cos(angle) * radius;
-                        const y = Math.sin(angle) * radius;
-                        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                    }
-                    ctx.closePath();
-                    ctx.fill();
                 }
-
                 ctx.restore();
             }
         }
@@ -1032,28 +1072,37 @@
         let spawnInterval = null;
         let fireworksTimer = null;
 
-        function startConfetti(count = 150) {
+        function trimParticles() {
+            if (particles.length > MAX_PARTICLES) {
+                const nonFirework = particles.filter(p => !p.isFirework);
+                const firework = particles.filter(p => p.isFirework);
+                if (nonFirework.length > MAX_PARTICLES * 0.5) {
+                    particles = nonFirework.slice(-MAX_PARTICLES * 0.4).concat(firework);
+                } else {
+                    particles = particles.slice(-MAX_PARTICLES);
+                }
+            }
+        }
+
+        function startConfetti(count = 35) {
             if (confettiRunning) {
-                for (let i = 0; i < count * 0.3; i++) {
+                for (let i = 0; i < Math.floor(count * 0.2); i++) {
                     particles.push(new Particle({ y: random(-H * 0.2, 0) }));
                 }
+                trimParticles();
                 return;
             }
             confettiRunning = true;
             for (let i = 0; i < count; i++) {
                 particles.push(new Particle({ y: random(-H * 0.5, 0) }));
             }
+            trimParticles();
             if (spawnInterval) clearInterval(spawnInterval);
             spawnInterval = setInterval(() => {
                 if (!confettiRunning) return;
-                for (let i = 0; i < 4; i++) {
-                    particles.push(new Particle({ y: -20 }));
-                }
-                if (particles.length > 400) {
-                    particles.splice(0, 50);
-                }
-            }, 400);
-
+                particles.push(new Particle({ y: -20 }));
+                trimParticles();
+            }, 700);
             animate();
         }
 
@@ -1063,27 +1112,19 @@
                 clearInterval(spawnInterval);
                 spawnInterval = null;
             }
-            particles.forEach(p => {
-                if (!p.isFirework) p.decay = 0.01;
-            });
-            setTimeout(() => {
-                if (!confettiRunning) {
-                    particles = particles.filter(p => p.isFirework);
-                }
-            }, 2000);
         }
 
-        function fireFireworks(centerX, centerY, count = 100) {
+        function fireFireworks(centerX, centerY, count = 25) {
             const cx = centerX || random(W * 0.2, W * 0.8);
             const cy = centerY || random(H * 0.2, H * 0.6);
             const colorBase = randomColor(false);
             for (let i = 0; i < count; i++) {
                 const angle = random(0, Math.PI * 2);
-                const speed = random(2, 8) * SPEED_FACTOR;
+                const speed = random(2, 5.5) * SPEED_FACTOR;
                 const vx = Math.cos(angle) * speed;
-                const vy = Math.sin(angle) * speed - random(0, 1) * SPEED_FACTOR;
-                const size = random(3, 7);
-                const hueShift = random(-30, 30);
+                const vy = Math.sin(angle) * speed - random(0, 0.8) * SPEED_FACTOR;
+                const size = random(2, 5);
+                const hueShift = random(-25, 25);
                 const color = `hsl(${(parseInt(colorBase.match(/\d+/)[0]) + hueShift + 360) % 360}, 90%, ${random(60, 80)}%)`;
                 const p = new Particle({
                     x: cx,
@@ -1093,21 +1134,21 @@
                     size: size,
                     shape: 'circle',
                     color: color,
-                    gravity: 0.08 * SPEED_FACTOR,
+                    gravity: 0.07 * SPEED_FACTOR,
                     friction: 0.97,
                     isFirework: true,
-                    decay: random(0.005, 0.015),
+                    decay: random(0.008, 0.018),
                     opacity: 1
                 });
                 particles.push(p);
             }
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 5; i++) {
                 const p = new Particle({
-                    x: cx + random(-10, 10),
-                    y: cy + random(-10, 10),
-                    vx: random(-1, 1) * SPEED_FACTOR,
-                    vy: random(-1, 1) * SPEED_FACTOR,
-                    size: random(2, 5),
+                    x: cx + random(-8, 8),
+                    y: cy + random(-8, 8),
+                    vx: random(-0.8, 0.8) * SPEED_FACTOR,
+                    vy: random(-0.8, 0.8) * SPEED_FACTOR,
+                    size: random(2, 4),
                     shape: 'circle',
                     color: '#fff',
                     gravity: 0.02 * SPEED_FACTOR,
@@ -1118,6 +1159,7 @@
                 });
                 particles.push(p);
             }
+            trimParticles();
             if (!confettiRunning && !animId) {
                 animate();
             }
@@ -1130,7 +1172,7 @@
             }
             fireFireworks();
             let count = 0;
-            const maxCount = Math.floor(10 / 0.3);
+            const maxCount = Math.floor(10 / 0.5);
             fireworksTimer = setInterval(() => {
                 if (count >= maxCount) {
                     clearInterval(fireworksTimer);
@@ -1139,7 +1181,7 @@
                 }
                 fireFireworks();
                 count++;
-            }, 300);
+            }, 500);
             setTimeout(() => {
                 if (fireworksTimer) {
                     clearInterval(fireworksTimer);
@@ -1150,7 +1192,6 @@
 
         function animate() {
             ctx.clearRect(0, 0, W, H);
-
             for (let i = particles.length - 1; i >= 0; i--) {
                 const p = particles[i];
                 p.update();
@@ -1162,7 +1203,6 @@
                     particles.splice(i, 1);
                 }
             }
-
             if (particles.length === 0 && !confettiRunning) {
                 if (animId) {
                     cancelAnimationFrame(animId);
@@ -1170,63 +1210,76 @@
                 }
                 return;
             }
-
             animId = requestAnimationFrame(animate);
         }
 
-        // ===== 页面加载10秒后自动触发 =====
         setTimeout(() => {
-            startConfetti(180);
-            startFireworksFor10Seconds();
-        }, 10000);
+            startConfetti(40);
+            setTimeout(() => {
+                startFireworksFor10Seconds();
+            }, 1000);
+        }, 1000);
 
-        // ===== ★ 礼物卡控制 =====
+        // ===== 礼物卡控制 =====
         const giftModal = document.getElementById('giftModal');
         const giftBtn = document.getElementById('giftBtn');
         const closeModalBtn = document.getElementById('closeModalBtn');
 
         function openGiftModal() {
+            wasVideoPlaying = !video.paused;
+            video.pause();
             video.removeAttribute('controls');
+            video.classList.add('hidden-video');
+            placeholder.classList.remove('hidden');
             videoWrapper.classList.add('blurred');
-            giftModal.classList.add('active');
         }
 
         function closeGiftModal() {
+            placeholder.classList.add('hidden');
+            video.classList.remove('hidden-video');
             video.setAttribute('controls', 'controls');
             videoWrapper.classList.remove('blurred');
-            giftModal.classList.remove('active');
+            if (wasVideoPlaying) {
+                video.play().catch(() => {});
+            }
         }
 
-        giftBtn.addEventListener('click', openGiftModal);
-        closeModalBtn.addEventListener('click', closeGiftModal);
+        giftBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            openGiftModal();
+            giftModal.classList.add('active');
+        });
+
+        closeModalBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            giftModal.classList.remove('active');
+            setTimeout(closeGiftModal, 100);
+        });
 
         giftModal.addEventListener('click', function(e) {
             if (e.target === this) {
-                closeGiftModal();
+                giftModal.classList.remove('active');
+                setTimeout(closeGiftModal, 100);
             }
         });
 
-        // ---- 按钮绑定 ----
+        videoWrapper.addEventListener('click', function(e) {
+            if (giftModal.classList.contains('active')) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        });
+
         document.getElementById('fireBtn').addEventListener('click', startFireworksFor10Seconds);
 
         document.getElementById('confettiBtn').addEventListener('click', function() {
             if (confettiRunning) {
-                for (let i = 0; i < 80; i++) {
+                for (let i = 0; i < 20; i++) {
                     particles.push(new Particle({ y: random(-H * 0.2, 0) }));
                 }
+                trimParticles();
             } else {
-                startConfetti(180);
-                setTimeout(() => {
-                    if (confettiRunning && spawnInterval) {
-                        clearInterval(spawnInterval);
-                        spawnInterval = setInterval(() => {
-                            if (!confettiRunning) return;
-                            for (let i = 0; i < 2; i++) {
-                                particles.push(new Particle({ y: -20 }));
-                            }
-                        }, 600);
-                    }
-                }, 8000);
+                startConfetti(40);
             }
         });
 
@@ -1241,7 +1294,7 @@
             if (fireworksTimer) clearInterval(fireworksTimer);
         });
 
-        console.log('🎂 慧慧妹妹生日快乐！蛋糕已移到最上方，微信 H5 已适配。');
+        console.log('🎂 慧慧妹妹生日快乐！页脚已恢复低调，保持可读。');
     </script>
 </body>
 </html>
