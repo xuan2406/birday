@@ -5,96 +5,1014 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>慧慧妹妹的生日会</title>
     <meta name="description" content="祝慧慧妹妹生日快乐，愿你少一丝烦恼，多一份顺心。">
-    <meta name="theme-color" content="#1a0a2e">
-    <meta property="og:title" content="慧慧妹妹的生日会 🎂" />
+    <meta name="theme-color" content="#f8bbd0">
+    <meta property="og:title" content="慧慧妹妹的生日会" />
     <meta property="og:description" content="愿你所愿皆成真，天天开心！" />
     <meta property="og:image" content="cake.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ===== 完整样式（与之前完全一致，此处保留关键样式） ===== */
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { min-height:100vh; background:linear-gradient(145deg,#1a0a2e 0%,#2d1b4e 40%,#1a0a2e 100%); display:flex; justify-content:center; align-items:center; font-family:'Segoe UI','Poppins',sans-serif; overflow-x:hidden; padding:20px; position:relative; }
-        .card { position:relative; max-width:720px; width:100%; background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); border-radius:56px; padding:40px 35px 50px; box-shadow:0 30px 80px rgba(0,0,0,0.7), inset 0 0 0 1px rgba(255,215,0,0.1); border:1px solid rgba(255,215,0,0.08); text-align:center; z-index:2; }
-        .cake-wrapper { margin:0 auto 12px; display:flex; justify-content:center; align-items:center; height:clamp(140px,30vw,220px); filter:drop-shadow(0 12px 40px rgba(251,191,36,0.15)); animation:float 3s ease-in-out infinite; }
-        .cake-wrapper img { max-height:100%; max-width:100%; width:auto; height:auto; display:block; object-fit:contain; }
-        @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
-        .title { font-size:clamp(2.2rem,9vw,4.8rem); font-weight:800; letter-spacing:2px; background:linear-gradient(135deg,#fcd34d,#fbbf24,#f59e0b,#fbbf24); background-size:300% 300%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:shimmer 4s ease-in-out infinite; text-shadow:0 0 40px rgba(251,191,36,0.15); margin-bottom:4px; }
-        .title i { font-size:0.8em; margin:0 4px; background:inherit; -webkit-background-clip:text; background-clip:text; color:inherit; }
-        @keyframes shimmer { 0%,100%{background-position:0% 50%;} 50%{background-position:100% 50%;} }
-        .subtitle { display:flex; align-items:center; justify-content:center; gap:8px; font-size:clamp(0.75rem,2.5vw,1.2rem); color:rgba(255,255,255,0.45); font-weight:300; letter-spacing:4px; margin-bottom:24px; border-bottom:1px solid rgba(255,215,0,0.06); padding:0 0 14px 0; flex-wrap:nowrap; }
-        .subtitle .icon-left, .subtitle .icon-right { flex-shrink:0; font-size:0.8em; opacity:0.5; color:rgba(255,255,255,0.4); }
-        .subtitle .text { text-align:center; word-break:break-word; line-height:1.6; flex:0 1 auto; max-width:100%; padding:0 2px; }
-        .video-wrapper { margin:16px 0 16px; border-radius:24px; overflow:hidden; background:rgba(0,0,0,0.4); box-shadow:0 8px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05); border:1px solid rgba(255,215,0,0.08); position:relative; transition:filter 0.4s ease, opacity 0.4s ease; min-height:120px; }
-        .video-wrapper::after { content:'\f04b'; font-family:'Font Awesome 6 Free'; font-weight:900; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:rgba(255,255,255,0.05); font-size:4rem; pointer-events:none; z-index:0; }
-        .video-wrapper.blurred { filter:blur(6px) brightness(0.5); opacity:0.6; transform:scale(0.98); }
-        #customPlayBtn { position:absolute; bottom:16px; right:16px; width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.2); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,0.3); color:rgba(255,255,255,0.9); font-size:20px; display:none; align-items:center; justify-content:center; cursor:pointer; z-index:20; transition:background 0.2s, transform 0.2s; box-shadow:0 2px 12px rgba(0,0,0,0.4); }
-        #customPlayBtn:hover { background:rgba(255,255,255,0.35); transform:scale(1.05); }
-        #customPlayBtn:active { transform:scale(0.95); }
-        #customPlayBtn i { margin-left:2px; }
-        .video-placeholder { position:absolute; inset:0; z-index:10; display:flex; flex-direction:column; justify-content:center; align-items:center; background:rgba(0,0,0,0.55); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border-radius:24px; color:rgba(255,255,255,0.8); font-size:clamp(0.9rem,2.5vw,1.2rem); letter-spacing:1px; gap:6px; padding:20px; transition:opacity 0.3s ease; }
-        .video-placeholder i { font-size:clamp(2.2rem,6vw,3.2rem); color:#fbbf24; margin-bottom:4px; filter:drop-shadow(0 0 20px rgba(251,191,36,0.2)); }
-        .video-placeholder .hint { font-size:0.7em; opacity:0.5; margin-top:2px; }
-        .video-placeholder.hidden { opacity:0; pointer-events:none; }
-        .video-wrapper video { display:block; width:100%; height:auto; max-height:70vh; max-height:70dvh; object-fit:contain; background:#000; position:relative; z-index:1; }
-        .video-wrapper video.hidden-video { display:none !important; }
-        .message { font-size:clamp(1.1rem,4vw,2rem); font-weight:600; color:#fff; margin:18px 0 12px; min-height:3.2rem; line-height:1.6; text-shadow:0 2px 20px rgba(0,0,0,0.4); }
-        .message .highlight { background:linear-gradient(135deg,#fcd34d,#fbbf24); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:700; }
-        .message .tiny { font-size:0.55em; opacity:0.6; font-weight:300; display:block; margin-top:4px; letter-spacing:1px; }
-        .message .tiny i { margin:0 4px; font-size:0.9em; opacity:0.8; }
-        .actions { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:16px; }
-        .actions button { background:rgba(255,255,255,0.04); border:1px solid rgba(255,215,0,0.1); border-radius:60px; padding:12px 22px; min-height:48px; color:rgba(255,255,255,0.8); font-size:clamp(0.8rem,2.5vw,0.95rem); font-weight:500; cursor:pointer; transition:all 0.3s cubic-bezier(0.25,0.46,0.45,0.94); backdrop-filter:blur(4px); letter-spacing:0.3px; display:inline-flex; align-items:center; gap:8px; flex:0 1 auto; }
-        .actions button i { font-size:1.1em; }
-        .actions button:hover { background:rgba(251,191,36,0.1); border-color:rgba(251,191,36,0.3); transform:translateY(-2px); box-shadow:0 8px 25px rgba(0,0,0,0.3); color:#fff; }
-        .actions button:active { transform:scale(0.95); }
-        .actions .btn-primary { background:linear-gradient(135deg,#fbbf24,#f59e0b); border-color:transparent; color:#1a0a2e; font-weight:600; box-shadow:0 4px 20px rgba(251,191,36,0.15); }
-        .actions .btn-primary:hover { background:linear-gradient(135deg,#fcd34d,#fbbf24); border-color:transparent; box-shadow:0 8px 35px rgba(251,191,36,0.3); color:#1a0a2e; }
-        #audioCloseBtn { position:fixed; top:max(16px, env(safe-area-inset-top,16px)); right:20px; z-index:99999; background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.08); color:rgba(255,255,255,0.6); width:44px; height:44px; border-radius:50%; font-size:18px; line-height:1; cursor:pointer; transition:all 0.3s ease; display:flex; align-items:center; justify-content:center; }
-        #audioCloseBtn i { font-size:1.2rem; }
-        #audioCloseBtn:hover { background:rgba(255,70,70,0.25); border-color:rgba(255,100,100,0.4); color:#fff; transform:scale(1.05); }
-        #audioCloseBtn.hidden { display:none; }
-        .gift-button-wrapper { margin-top:28px; display:flex; justify-content:center; }
-        #giftBtn { background:linear-gradient(135deg,#ec4899,#8b5cf6); border:none; border-radius:80px; padding:14px 32px; min-height:56px; font-size:clamp(1.1rem,4vw,1.4rem); font-weight:700; color:#fff; cursor:pointer; transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); box-shadow:0 8px 30px rgba(236,72,153,0.25); display:inline-flex; align-items:center; gap:12px; letter-spacing:1px; backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,0.15); }
-        #giftBtn i { font-size:clamp(1.6rem,5vw,2.2rem); color:#fff; filter:drop-shadow(0 0 6px rgba(255,255,255,0.3)); }
-        #giftBtn:hover { transform:scale(1.05) translateY(-3px); box-shadow:0 16px 50px rgba(236,72,153,0.4); border-color:rgba(255,255,255,0.3); }
-        .modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); z-index:999999; justify-content:center; align-items:center; animation:fadeIn 0.3s ease; padding:20px; }
-        .modal-overlay.active { display:flex; }
-        .modal-card { background:linear-gradient(160deg,rgba(45,27,78,0.95),rgba(26,10,46,0.98)); border:1px solid rgba(251,191,36,0.25); border-radius:40px; padding:36px 28px 32px; max-width:460px; width:100%; text-align:center; box-shadow:0 50px 100px rgba(0,0,0,0.8), 0 0 60px rgba(251,191,36,0.05); position:relative; animation:scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1); backdrop-filter:blur(8px); }
-        .modal-card .close-modal { position:absolute; top:12px; right:16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.05); border-radius:50%; width:36px; height:36px; color:rgba(255,255,255,0.4); font-size:18px; cursor:pointer; transition:all 0.3s ease; display:flex; align-items:center; justify-content:center; }
-        .modal-card .close-modal:hover { background:rgba(255,255,255,0.1); color:#fff; transform:rotate(90deg); }
-        .modal-card .gift-icon-big { font-size:clamp(3.6rem,12vw,4.8rem); display:block; margin-bottom:8px; }
-        .modal-card .gift-icon-big i { color:#fbbf24; filter:drop-shadow(0 0 25px rgba(251,191,36,0.5)); }
-        .modal-card h2 { font-size:clamp(1.6rem,6vw,2.2rem); font-weight:700; background:linear-gradient(135deg,#fcd34d,#f59e0b); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:12px; letter-spacing:1px; }
-        .modal-card h2 i { margin-right:8px; color:#f472b6; background:none; -webkit-background-clip:unset; background-clip:unset; }
-        .modal-card .desc { color:rgba(255,255,255,0.6); font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; border-top:1px solid rgba(255,215,0,0.06); padding-top:10px; }
-        .modal-card .item-list { text-align:left; display:inline-block; margin:6px auto; }
-        .modal-card .item-list p { color:rgba(255,255,255,0.9); font-size:clamp(0.95rem,3vw,1.1rem); line-height:2.2; margin:0; display:flex; align-items:center; gap:10px; font-weight:400; }
-        .modal-card .item-list p i { color:#34d399; font-size:1.1rem; width:1.4rem; flex-shrink:0; }
-        .modal-card .signature { margin-top:20px; font-size:clamp(1rem,3.5vw,1.2rem); font-weight:600; font-family:'Georgia','Segoe UI',cursive; letter-spacing:2px; background:linear-gradient(135deg,#fcd34d,#fbbf24); -webkit-background-clip:text; background-clip:text; color:transparent; border-top:1px solid rgba(255,215,0,0.08); padding-top:14px; }
-        .modal-card .signature i { margin:0 6px; color:#f472b6; font-size:0.9rem; }
-        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-        @keyframes scaleIn { from{transform:scale(0.9) translateY(20px); opacity:0;} to{transform:scale(1) translateY(0); opacity:1;} }
-        #confetti-canvas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999; }
-        .stars { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
-        .star { position:absolute; width:3px; height:3px; background:#fff; border-radius:50%; animation:twinkle var(--dur,3s) ease-in-out infinite alternate; opacity:0.3; }
-        @keyframes twinkle { 0%{opacity:0.1; transform:scale(0.8);} 100%{opacity:0.8; transform:scale(1.2);} }
-        .footer-hint { margin-top:16px; font-size:clamp(0.65rem,2vw,0.8rem); color:rgba(255,255,255,0.45); letter-spacing:2px; user-select:none; display:flex; align-items:center; justify-content:center; gap:8px; font-weight:300; }
-        .footer-hint i { font-size:0.75em; opacity:0.35; color:rgba(255,255,255,0.4); }
-        .footer-hint .hint-dot { color:rgba(255,255,255,0.15); font-size:0.5em; }
-        .footer-hint .hint-heart { color:#f472b6; opacity:0.4; font-size:0.7em; }
-        @media (max-width:480px) { .card{ padding:24px 16px 32px; border-radius:36px; } .video-wrapper video{ max-height:50vh; max-height:50dvh; } .cake-wrapper{ height:clamp(120px,25vw,180px); } .actions{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; width:100%; } .actions button{ flex:unset; width:100%; padding:10px 6px; min-height:44px; justify-content:center; font-size:clamp(0.7rem,2.2vw,0.85rem); border-radius:40px; gap:4px; } .actions button i{ font-size:1rem; } #giftBtn{ padding:12px 24px; min-height:50px; gap:8px; } .modal-card{ padding:28px 18px 26px; border-radius:32px; } .modal-card .item-list p{ font-size:0.95rem; line-height:2; } #audioCloseBtn{ width:40px; height:40px; right:12px; font-size:16px; } .subtitle{ gap:6px; font-size:clamp(0.7rem,2.8vw,1rem); letter-spacing:2px; padding-bottom:12px; } .video-placeholder{ font-size:clamp(0.8rem,2vw,1rem); } .video-placeholder i{ font-size:clamp(1.8rem,5vw,2.6rem); } .footer-hint{ font-size:clamp(0.6rem,1.8vw,0.75rem); gap:6px; letter-spacing:1px; margin-top:12px; } #customPlayBtn{ width:38px; height:38px; font-size:16px; bottom:12px; right:12px; } }
-        @media (max-width:380px) { .cake-wrapper{ height:100px; } .video-wrapper video{ max-height:40vh; max-height:40dvh; } .actions button{ font-size:0.65rem; padding:8px 4px; min-height:38px; } #giftBtn{ font-size:1rem; padding:10px 20px; min-height:44px; } #giftBtn i{ font-size:1.4rem; } .footer-hint{ font-size:0.55rem; gap:4px; letter-spacing:1px; } }
+        /* ===== CSS Variables ===== */
+        :root {
+            --bg-primary: linear-gradient(145deg, #fce4ec 0%, #f8bbd0 40%, #f48fb1 100%);
+            --bg-card: rgba(255, 255, 255, 0.18);
+            --border-card: rgba(233, 30, 99, 0.15);
+            --shadow-card: 0 30px 80px rgba(233, 30, 99, 0.15);
+            --text-primary: #2c1a2a;
+            --text-secondary: rgba(44, 26, 42, 0.55);
+            --text-white: #2c1a2a;
+            --title-gradient: linear-gradient(135deg, #f06292, #ec407a, #fbbf24);
+            --title-shadow: 0 0 40px rgba(233, 30, 99, 0.15);
+            --btn-primary: linear-gradient(135deg, #ec407a, #f06292);
+            --btn-primary-hover: linear-gradient(135deg, #f06292, #ec407a);
+            --btn-primary-shadow: 0 4px 20px rgba(233, 30, 99, 0.2);
+            --btn-secondary: rgba(233, 30, 99, 0.06);
+            --btn-secondary-border: rgba(233, 30, 99, 0.12);
+            --btn-secondary-hover: rgba(233, 30, 99, 0.12);
+            --highlight: #ec407a;
+            --highlight-glow: rgba(233, 30, 99, 0.2);
+            --video-bg: rgba(0, 0, 0, 0.15);
+            --video-border: rgba(233, 30, 99, 0.1);
+            --placeholder-bg: rgba(233, 30, 99, 0.08);
+            --modal-bg: linear-gradient(160deg, rgba(252, 228, 236, 0.96), rgba(248, 187, 208, 0.98));
+            --modal-border: rgba(233, 30, 99, 0.2);
+            --modal-shadow: 0 50px 100px rgba(233, 30, 99, 0.15);
+            --footer-color: #3d2a30;
+            --star-color: rgba(44, 26, 42, 0.2);
+            --close-btn-bg: rgba(233, 30, 99, 0.08);
+            --close-btn-hover: rgba(233, 30, 99, 0.15);
+            --gift-btn: linear-gradient(135deg, #ec407a, #ab47bc);
+            --gift-btn-shadow: 0 8px 30px rgba(233, 30, 99, 0.25);
+            --gift-btn-hover-shadow: 0 16px 50px rgba(233, 30, 99, 0.35);
+            --lightrope-color: #fbbf24;
+            --lightrope-glow: rgba(251, 191, 36, 0.3);
+            --lightrope-string: #d4a373;
+            --transition-duration: 0.6s;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: linear-gradient(145deg, #08040e 0%, #160825 40%, #0c0518 100%);
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-card: rgba(255, 255, 255, 0.04);
+            --shadow-card: 0 30px 80px rgba(0, 0, 0, 0.8);
+            --text-primary: rgba(255, 255, 255, 0.85);
+            --text-secondary: rgba(255, 255, 255, 0.4);
+            --text-white: rgba(255, 255, 255, 0.85);
+            --title-gradient: linear-gradient(135deg, #f48fb1, #f06292, #fbbf24);
+            --title-shadow: 0 0 40px rgba(233, 30, 99, 0.05);
+            --btn-primary: linear-gradient(135deg, #ad1457, #d81b60);
+            --btn-primary-hover: linear-gradient(135deg, #d81b60, #ad1457);
+            --btn-primary-shadow: 0 4px 20px rgba(233, 30, 99, 0.05);
+            --btn-secondary: rgba(255, 255, 255, 0.03);
+            --btn-secondary-border: rgba(255, 255, 255, 0.06);
+            --btn-secondary-hover: rgba(255, 255, 255, 0.06);
+            --highlight: #f06292;
+            --highlight-glow: rgba(233, 30, 99, 0.05);
+            --video-bg: rgba(0, 0, 0, 0.5);
+            --video-border: rgba(255, 255, 255, 0.03);
+            --placeholder-bg: rgba(0, 0, 0, 0.4);
+            --modal-bg: linear-gradient(160deg, rgba(16, 8, 30, 0.96), rgba(26, 10, 46, 0.98));
+            --modal-border: rgba(233, 30, 99, 0.08);
+            --modal-shadow: 0 50px 100px rgba(0, 0, 0, 0.9);
+            --footer-color: #c0b0c0;
+            --star-color: rgba(255, 255, 255, 0.08);
+            --close-btn-bg: rgba(255, 255, 255, 0.03);
+            --close-btn-hover: rgba(255, 255, 255, 0.06);
+            --gift-btn: linear-gradient(135deg, #7b1fa2, #4a148c);
+            --gift-btn-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            --gift-btn-hover-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+            --lightrope-color: #fbbf24;
+            --lightrope-glow: rgba(251, 191, 36, 0.05);
+            --lightrope-string: #8d6e63;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Poppins', sans-serif;
+            overflow-x: hidden;
+            padding: 20px;
+            position: relative;
+            transition: background var(--transition-duration) ease;
+        }
+
+        .card {
+            position: relative;
+            max-width: 720px;
+            width: 100%;
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 56px;
+            padding: 40px 35px 50px;
+            box-shadow: var(--shadow-card), inset 0 0 0 1px var(--border-card);
+            border: 1px solid var(--border-card);
+            text-align: center;
+            z-index: 2;
+            transition: background var(--transition-duration) ease,
+                box-shadow var(--transition-duration) ease,
+                border-color var(--transition-duration) ease;
+        }
+
+        .cake-wrapper {
+            margin: 0 auto 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: clamp(140px, 30vw, 220px);
+            filter: drop-shadow(0 12px 40px var(--highlight-glow));
+            animation: float 3s ease-in-out infinite;
+            transition: filter var(--transition-duration) ease;
+        }
+        .cake-wrapper img {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .title {
+            font-size: clamp(2.2rem, 9vw, 4.8rem);
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: var(--title-gradient);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shimmer 4s ease-in-out infinite;
+            text-shadow: var(--title-shadow);
+            margin-bottom: 4px;
+            transition: text-shadow var(--transition-duration) ease;
+        }
+        .title i {
+            font-size: 0.8em;
+            margin: 0 4px;
+            background: inherit;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: inherit;
+        }
+        @keyframes shimmer {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .subtitle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: clamp(0.75rem, 2.5vw, 1.2rem);
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-card);
+            padding: 0 0 14px 0;
+            flex-wrap: nowrap;
+            transition: color var(--transition-duration) ease,
+                border-color var(--transition-duration) ease;
+            color: #3d2a30;
+        }
+        [data-theme="dark"] .subtitle {
+            color: #d0c0d0;
+        }
+        .subtitle .icon-left,
+        .subtitle .icon-right {
+            flex-shrink: 0;
+            font-size: 0.8em;
+            opacity: 0.5;
+            transition: color var(--transition-duration) ease;
+            color: inherit;
+        }
+        .subtitle .text {
+            text-align: center;
+            word-break: break-word;
+            line-height: 1.6;
+            flex: 0 1 auto;
+            max-width: 100%;
+            padding: 0 2px;
+        }
+
+        .video-wrapper {
+            margin: 16px 0 16px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: var(--video-bg);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 var(--border-card);
+            border: 1px solid var(--video-border);
+            position: relative;
+            transition: all var(--transition-duration) ease;
+            min-height: 120px;
+        }
+        .video-wrapper::after {
+            content: '\f04b';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255, 255, 255, 0.03);
+            font-size: 4rem;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .video-wrapper.blurred {
+            filter: blur(6px) brightness(0.5);
+            opacity: 0.6;
+            transform: scale(0.98);
+        }
+        #customPlayBtn {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(233, 30, 99, 0.2);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+        }
+        #customPlayBtn:hover {
+            background: rgba(233, 30, 99, 0.35);
+            transform: scale(1.05);
+        }
+        #customPlayBtn:active {
+            transform: scale(0.95);
+        }
+        #customPlayBtn i {
+            margin-left: 2px;
+        }
+        .video-placeholder {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--placeholder-bg);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 24px;
+            color: var(--text-white);
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            letter-spacing: 1px;
+            gap: 6px;
+            padding: 20px;
+            transition: opacity 0.3s ease, background var(--transition-duration) ease,
+                color var(--transition-duration) ease;
+        }
+        .video-placeholder i {
+            font-size: clamp(2.2rem, 6vw, 3.2rem);
+            color: var(--highlight);
+            margin-bottom: 4px;
+            filter: drop-shadow(0 0 20px var(--highlight-glow));
+            transition: color var(--transition-duration) ease,
+                filter var(--transition-duration) ease;
+        }
+        .video-placeholder .hint {
+            font-size: 0.7em;
+            opacity: 0.5;
+            margin-top: 2px;
+        }
+        .video-placeholder.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .video-wrapper video {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            max-height: 70dvh;
+            object-fit: contain;
+            background: #000;
+            position: relative;
+            z-index: 1;
+        }
+        .video-wrapper video.hidden-video {
+            display: none !important;
+        }
+
+        .message {
+            font-size: clamp(1.1rem, 4vw, 2rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 18px 0 12px;
+            min-height: 3.2rem;
+            line-height: 1.6;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            transition: color var(--transition-duration) ease,
+                text-shadow var(--transition-duration) ease;
+        }
+        .message .highlight {
+            background: var(--title-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        .message .tiny {
+            font-size: 0.55em;
+            font-weight: 300;
+            display: block;
+            margin-top: 4px;
+            letter-spacing: 1px;
+            color: #3d2a30;
+            opacity: 0.9;
+            transition: color var(--transition-duration) ease;
+        }
+        [data-theme="dark"] .message .tiny {
+            color: #e0d0e0;
+        }
+        .message .tiny i {
+            margin: 0 4px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .actions button {
+            background: var(--btn-secondary);
+            border: 1px solid var(--btn-secondary-border);
+            border-radius: 60px;
+            padding: 12px 22px;
+            min-height: 48px;
+            color: var(--text-primary);
+            font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background var(--transition-duration) ease,
+                border-color var(--transition-duration) ease,
+                color var(--transition-duration) ease;
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 1 auto;
+        }
+        .actions button i {
+            font-size: 1.1em;
+        }
+        .actions button:hover {
+            background: var(--btn-secondary-hover);
+            border-color: var(--highlight);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            color: var(--text-primary);
+        }
+        .actions button:active {
+            transform: scale(0.95);
+        }
+        .actions .btn-primary {
+            background: var(--btn-primary);
+            border-color: transparent;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: var(--btn-primary-shadow);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background var(--transition-duration) ease,
+                box-shadow var(--transition-duration) ease;
+        }
+        .actions .btn-primary:hover {
+            background: var(--btn-primary-hover);
+            border-color: transparent;
+            box-shadow: 0 8px 35px var(--highlight-glow);
+            color: #fff;
+        }
+
+        .gift-button-wrapper {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+        }
+        #giftBtn {
+            background: var(--gift-btn);
+            border: none;
+            border-radius: 80px;
+            padding: 14px 32px;
+            min-height: 56px;
+            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background var(--transition-duration) ease,
+                box-shadow var(--transition-duration) ease;
+            box-shadow: var(--gift-btn-shadow);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 1px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        #giftBtn i {
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
+            color: #fff;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
+        }
+        #giftBtn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: var(--gift-btn-hover-shadow);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 999999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-card {
+            background: var(--modal-bg);
+            border: 1px solid var(--modal-border);
+            border-radius: 40px;
+            padding: 36px 28px 32px;
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--modal-shadow), 0 0 60px var(--highlight-glow);
+            position: relative;
+            animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(8px);
+            transition: background var(--transition-duration) ease,
+                border-color var(--transition-duration) ease,
+                box-shadow var(--transition-duration) ease;
+        }
+        .modal-card .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: var(--close-btn-bg);
+            border: 1px solid var(--border-card);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            color: var(--text-secondary);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease,
+                background var(--transition-duration) ease,
+                border-color var(--transition-duration) ease,
+                color var(--transition-duration) ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-card .close-modal:hover {
+            background: var(--close-btn-hover);
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+        .modal-card .gift-icon-big {
+            font-size: clamp(3.6rem, 12vw, 4.8rem);
+            display: block;
+            margin-bottom: 8px;
+        }
+        .modal-card .gift-icon-big i {
+            color: var(--highlight);
+            filter: drop-shadow(0 0 25px var(--highlight-glow));
+            transition: color var(--transition-duration) ease,
+                filter var(--transition-duration) ease;
+        }
+        .modal-card h2 {
+            font-size: clamp(1.6rem, 6vw, 2.2rem);
+            font-weight: 700;
+            background: var(--title-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .modal-card h2 i {
+            margin-right: 8px;
+            color: var(--highlight);
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+        .modal-card .desc {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-top: 1px solid var(--border-card);
+            padding-top: 10px;
+            transition: color var(--transition-duration) ease,
+                border-color var(--transition-duration) ease;
+        }
+        .modal-card .item-list {
+            text-align: left;
+            display: inline-block;
+            margin: 6px auto;
+        }
+        .modal-card .item-list p {
+            color: var(--text-primary);
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            line-height: 2.2;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 400;
+            transition: color var(--transition-duration) ease;
+        }
+        .modal-card .item-list p i {
+            color: var(--highlight);
+            font-size: 1.1rem;
+            width: 1.4rem;
+            flex-shrink: 0;
+            transition: color var(--transition-duration) ease;
+        }
+        .modal-card .signature {
+            margin-top: 20px;
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            font-weight: 600;
+            font-family: 'Georgia', 'Segoe UI', cursive;
+            letter-spacing: 2px;
+            background: var(--title-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            border-top: 1px solid var(--border-card);
+            padding-top: 14px;
+            transition: border-color var(--transition-duration) ease;
+        }
+        .modal-card .signature i {
+            margin: 0 6px;
+            color: var(--highlight);
+            font-size: 0.9rem;
+            transition: color var(--transition-duration) ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9) translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--star-color);
+            border-radius: 50%;
+            animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+            opacity: 0.3;
+            transition: background var(--transition-duration) ease;
+        }
+        @keyframes twinkle {
+            0% {
+                opacity: 0.1;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 0.8;
+                transform: scale(1.2);
+            }
+        }
+
+        .footer-hint {
+            margin-top: 16px;
+            font-size: clamp(0.65rem, 2vw, 0.8rem);
+            letter-spacing: 2px;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 300;
+            transition: color var(--transition-duration) ease;
+            color: #3d2a30;
+        }
+        [data-theme="dark"] .footer-hint {
+            color: #c0b0c0;
+        }
+        .footer-hint i {
+            font-size: 0.75em;
+            opacity: 0.35;
+            color: inherit;
+            transition: color var(--transition-duration) ease;
+        }
+        .footer-hint .hint-dot {
+            color: inherit;
+            font-size: 0.5em;
+            transition: color var(--transition-duration) ease;
+        }
+        .footer-hint .hint-heart {
+            color: var(--highlight);
+            opacity: 0.4;
+            font-size: 0.7em;
+            transition: color var(--transition-duration) ease;
+        }
+
+        #audioCloseBtn {
+            position: fixed;
+            top: max(16px, env(safe-area-inset-top, 16px));
+            right: 20px;
+            z-index: 99999;
+            background: var(--btn-secondary);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--btn-secondary-border);
+            color: var(--text-secondary);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease,
+                background var(--transition-duration) ease,
+                border-color var(--transition-duration) ease,
+                color var(--transition-duration) ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #audioCloseBtn i {
+            font-size: 1.2rem;
+        }
+        #audioCloseBtn:hover {
+            background: var(--btn-secondary-hover);
+            border-color: var(--highlight);
+            color: var(--text-primary);
+            transform: scale(1.05);
+        }
+        #audioCloseBtn.hidden {
+            display: none;
+        }
+
+        .lightrope-wrapper {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lightrope {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .lightrope.pull {
+            animation: pullRope 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes pullRope {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            30% {
+                transform: translateY(-18px) rotate(-4deg);
+            }
+            60% {
+                transform: translateY(-6px) rotate(2deg);
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        .rope-string {
+            width: 2.5px;
+            height: 32px;
+            background: var(--lightrope-string);
+            border-radius: 2px;
+            position: relative;
+            transition: background var(--transition-duration) ease;
+            flex-shrink: 0;
+        }
+        .rope-string::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 3px;
+            border-radius: 2px;
+            background: var(--lightrope-string);
+            opacity: 0.4;
+            transition: background var(--transition-duration) ease;
+        }
+
+        .rope-pull {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ffe082, var(--lightrope-color));
+            box-shadow: 0 0 20px var(--lightrope-glow), inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: -1px;
+            flex-shrink: 0;
+            transition: background var(--transition-duration) ease,
+                box-shadow var(--transition-duration) ease;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: rgba(74, 26, 46, 0.3);
+            position: relative;
+        }
+        .rope-pull::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 4px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            opacity: 0.6;
+            transition: opacity var(--transition-duration) ease;
+        }
+
+        .rope-label {
+            font-size: 10px;
+            letter-spacing: 1px;
+            margin-top: 6px;
+            font-weight: 400;
+            opacity: 0.6;
+            white-space: nowrap;
+            background: var(--bg-card);
+            padding: 2px 10px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--border-card);
+            transition: all var(--transition-duration) ease;
+            color: #3d2a30;
+        }
+        [data-theme="dark"] .rope-label {
+            color: #c0b0c0;
+            background: rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+        .lightrope-wrapper:hover .rope-label {
+            opacity: 0.8;
+        }
+
+        [data-theme="dark"] .rope-pull {
+            background: radial-gradient(circle at 35% 35%, #a67c52, #6d4c2a);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.05), inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        }
+        [data-theme="dark"] .rope-string {
+            background: #5d4037;
+        }
+        [data-theme="dark"] .rope-string::after {
+            background: #5d4037;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 24px 16px 32px;
+                border-radius: 36px;
+            }
+            .video-wrapper video {
+                max-height: 50vh;
+                max-height: 50dvh;
+            }
+            .cake-wrapper {
+                height: clamp(120px, 25vw, 180px);
+            }
+            .actions {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+                width: 100%;
+            }
+            .actions button {
+                flex: unset;
+                width: 100%;
+                padding: 10px 6px;
+                min-height: 44px;
+                justify-content: center;
+                font-size: clamp(0.7rem, 2.2vw, 0.85rem);
+                border-radius: 40px;
+                gap: 4px;
+            }
+            .actions button i {
+                font-size: 1rem;
+            }
+            #giftBtn {
+                padding: 12px 24px;
+                min-height: 50px;
+                gap: 8px;
+            }
+            .modal-card {
+                padding: 28px 18px 26px;
+                border-radius: 32px;
+            }
+            .modal-card .item-list p {
+                font-size: 0.95rem;
+                line-height: 2;
+            }
+            #audioCloseBtn {
+                width: 40px;
+                height: 40px;
+                right: 12px;
+                font-size: 16px;
+            }
+            .subtitle {
+                gap: 6px;
+                font-size: clamp(0.7rem, 2.8vw, 1rem);
+                letter-spacing: 2px;
+                padding-bottom: 12px;
+            }
+            .video-placeholder {
+                font-size: clamp(0.8rem, 2vw, 1rem);
+            }
+            .video-placeholder i {
+                font-size: clamp(1.8rem, 5vw, 2.6rem);
+            }
+            .footer-hint {
+                font-size: clamp(0.6rem, 1.8vw, 0.75rem);
+                gap: 6px;
+                letter-spacing: 1px;
+                margin-top: 12px;
+            }
+            #customPlayBtn {
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
+                bottom: 12px;
+                right: 12px;
+            }
+            .lightrope-wrapper {
+                bottom: 16px;
+                right: 16px;
+            }
+            .rope-string {
+                height: 24px;
+            }
+            .rope-pull {
+                width: 16px;
+                height: 16px;
+            }
+            .rope-label {
+                font-size: 8px;
+                padding: 1px 8px;
+                margin-top: 4px;
+            }
+        }
+        @media (max-width: 380px) {
+            .cake-wrapper {
+                height: 100px;
+            }
+            .video-wrapper video {
+                max-height: 40vh;
+                max-height: 40dvh;
+            }
+            .actions button {
+                font-size: 0.65rem;
+                padding: 8px 4px;
+                min-height: 38px;
+            }
+            #giftBtn {
+                font-size: 1rem;
+                padding: 10px 20px;
+                min-height: 44px;
+            }
+            #giftBtn i {
+                font-size: 1.4rem;
+            }
+            .footer-hint {
+                font-size: 0.55rem;
+                gap: 4px;
+                letter-spacing: 1px;
+            }
+        }
+
+        .theme-transition * {
+            transition: background var(--transition-duration) ease,
+                color var(--transition-duration) ease,
+                border-color var(--transition-duration) ease,
+                box-shadow var(--transition-duration) ease,
+                text-shadow var(--transition-duration) ease,
+                fill var(--transition-duration) ease,
+                stroke var(--transition-duration) ease;
+        }
     </style>
 </head>
 <body>
 
+    <!-- ===== Stars ===== -->
     <div class="stars" id="starsContainer"></div>
     <canvas id="confetti-canvas"></canvas>
 
+    <!-- ===== Audio Close Btn ===== -->
     <button id="audioCloseBtn" title="关闭音乐">
         <i class="fas fa-volume-mute"></i>
     </button>
 
-    <div class="card">
+    <!-- ===== LIGHT ROPE (灯绳) ===== -->
+    <div class="lightrope-wrapper" id="lightropeWrapper" title="拉我开灯 / 关灯">
+        <div class="lightrope" id="lightrope">
+            <div class="rope-string"></div>
+            <div class="rope-pull"></div>
+        </div>
+        <span class="rope-label" id="ropeLabel">🌙 拉我关灯</span>
+    </div>
+
+    <!-- ===== Card ===== -->
+    <div class="card" id="mainCard">
         <div class="cake-wrapper">
             <img src="cake.png" alt="生日蛋糕" />
         </div>
@@ -112,99 +1030,88 @@
         <!-- 视频区域 -->
         <div class="video-wrapper" id="videoWrapper">
             <video id="birthdayVideo"
-                   controls
-                   preload="metadata"
-                   autoplay
-                   playsinline
-                   webkit-playsinline
-                   x5-playsinline
-                   x5-video-player-type="h5"
-                   x5-video-player-fullscreen="true"
-                   controlslist="nodownload nofullscreen noremoteplayback"
-                   disablePictureInPicture
-                   style="object-fit: contain;">
-                <source src="mobri.mp4" type="video/mp4">
-                您的浏览器不支持视频播放。
-            </video>
-            <!-- 自定义播放按钮（视频结束时显示） -->
-            <button id="customPlayBtn" aria-label="重新播放">
-                <i class="fas fa-play"></i>
-            </button>
-            <div class="video-placeholder hidden" id="videoPlaceholder">
-                <i class="fas fa-gift"></i>
-                <span>🎵 视频已暂停 · 礼物卡打开中</span>
-                <span class="hint"><i class="fas fa-heart" style="color:#f472b6;"></i> 关闭礼物卡后继续播放 <i class="fas fa-heart" style="color:#f472b6;"></i></span>
-            </div>
-        </div>
-
-        <div class="message" id="greeting">
-            <i class="fas fa-heart" style="color:#f472b6;font-size:0.6em;margin-right:6px;"></i>
-            祝 <span class="highlight">段慧超小朋友</span> 生日快乐！
-            <span class="tiny">
-                <i class="fas fa-feather-alt"></i> 愿你平平安安，所愿皆灵 <i class="fas fa-feather-alt"></i>
-            </span>
-        </div>
-
-        <div class="actions">
-            <button id="fireBtn" class="btn-primary"><i class="fas fa-rocket"></i> 放烟花</button>
-            <button id="confettiBtn"><i class="fas fa-sparkles"></i> 满天星</button>
-            <button id="musicToggleBtn"><i class="fas fa-music"></i> <span>静音</span></button>
-        </div>
-
-        <div class="footer-hint">
-            <i class="fas fa-wand-sparkles"></i>
-            <span>小狗要</span>
-            <span class="hint-dot">✦</span>
-            <span>一直黏着你</span>
-            <i class="fas fa-wand-sparkles"></i>
-            <span class="hint-heart"><i class="fas fa-heart"></i></span>
-        </div>
-
-        <div class="gift-button-wrapper">
-            <button id="giftBtn"><i class="fas fa-gift"></i> 打开礼物</button>
+            controls
+            preload="metadata"
+            autoplay
+            playsinline
+            webkit-playsinline
+            x5-playsinline
+            x5-video-player-type="h5"
+            x5-video-player-fullscreen="true"
+            controlslist="nodownload nofullscreen noremoteplayback"
+            disablePictureInPicture
+            style="object-fit: contain;">
+            <source src="mobri.mp4" type="video/mp4">
+            您的浏览器不支持视频播放。
+        </video>
+        <!-- 自定义播放按钮（视频结束时显示） -->
+        <button id="customPlayBtn" aria-label="重新播放">
+            <i class="fas fa-play"></i>
+        </button>
+        <div class="video-placeholder hidden" id="videoPlaceholder">
+            <i class="fas fa-gift"></i>
+            <span>🎵 视频已暂停 · 礼物卡打开中</span>
+            <span class="hint"><i class="fas fa-heart" style="color:var(--highlight);"></i> 关闭礼物卡后继续播放 <i class="fas fa-heart" style="color:var(--highlight);"></i></span>
         </div>
     </div>
 
-    <div class="modal-overlay" id="giftModal">
-        <div class="modal-card">
-            <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
-            <span class="gift-icon-big"><i class="fas fa-gift"></i></span>
-            <h2><i class="fas fa-car"></i> 车车装饰全包卡</h2>
-            <div class="desc">✦ 凭此卡可兑换 ✦</div>
-            <div class="item-list">
-                <p><i class="fas fa-check-circle"></i> 电动车所有装饰</p>
-                <p><i class="fas fa-check-circle"></i> 包含挡风雨披等装备</p>
-                <p><i class="fas fa-check-circle"></i> 选购后凭此卡全额报销</p>
-            </div>
-            <div class="signature">
-                <i class="fas fa-heart"></i> 永远爱你的哥哥 <i class="fas fa-heart"></i>
-            </div>
-        </div>
+    <div class="message" id="greeting">
+        <i class="fas fa-heart" style="color:var(--highlight);font-size:0.6em;margin-right:6px;transition:color var(--transition-duration) ease;"></i>
+        祝 <span class="highlight">段慧超小朋友</span> 生日快乐！
+        <span class="tiny">
+            <i class="fas fa-feather-alt"></i> 愿你平平安安，所愿皆灵 <i class="fas fa-feather-alt"></i>
+        </span>
     </div>
 
-    <audio id="bgm" src="birthday.mp3" preload="auto" loop></audio>
+    <div class="actions">
+        <button id="fireBtn" class="btn-primary"><i class="fas fa-rocket"></i> 放烟花</button>
+        <button id="confettiBtn"><i class="fas fa-sparkles"></i> 满天星</button>
+        <button id="musicToggleBtn"><i class="fas fa-music"></i> <span>静音</span></button>
+    </div>
 
-    <script>
-        // ============================================================
-        //  星星、彩带等（保持不变）
-        // ============================================================
+    <div class="footer-hint">
+        <i class="fas fa-wand-sparkles"></i>
+        <span>小狗要</span>
+        <span class="hint-dot">✦</span>
+        <span>一直黏着你</span>
+        <i class="fas fa-wand-sparkles"></i>
+        <span class="hint-heart"><i class="fas fa-heart"></i></span>
+    </div>
 
-        (function createStars() {
-            const container = document.getElementById('starsContainer');
-            for (let i = 0; i < 120; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const size = 1 + Math.random() * 3;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
-                star.style.animationDelay = (Math.random() * 5) + 's';
-                container.appendChild(star);
-            }
-        })();
+    <div class="gift-button-wrapper">
+        <button id="giftBtn"><i class="fas fa-gift"></i> 打开礼物</button>
+    </div>
+</div>
 
+<!-- ===== Gift Modal ===== -->
+<div class="modal-overlay" id="giftModal">
+    <div class="modal-card">
+        <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
+        <span class="gift-icon-big"><i class="fas fa-gift"></i></span>
+        <h2><i class="fas fa-car"></i> 车车装饰全包卡</h2>
+        <div class="desc">✦ 凭此卡可兑换 ✦</div>
+        <div class="item-list">
+            <p><i class="fas fa-check-circle"></i> 电动车所有装饰</p>
+            <p><i class="fas fa-check-circle"></i> 包含挡风雨披等装备</p>
+            <p><i class="fas fa-check-circle"></i> 选购后凭此卡全额报销</p>
+        </div>
+        <div class="signature">
+            <i class="fas fa-heart"></i> 永远爱你的哥哥 <i class="fas fa-heart"></i>
+        </div>
+    </div>
+</div>
+
+<!-- ===== Audio ===== -->
+<audio id="bgm" src="birthday.mp3" preload="auto" loop></audio>
+
+<!-- ============================================================ -->
+<!-- ===== JavaScript ===== -->
+<!-- ============================================================ -->
+<script>
+    (function() {
+        'use strict';
+
+        // ===== DOM refs =====
         const video = document.getElementById('birthdayVideo');
         const videoWrapper = document.getElementById('videoWrapper');
         const placeholder = document.getElementById('videoPlaceholder');
@@ -213,44 +1120,88 @@
         const musicToggleBtn = document.getElementById('musicToggleBtn');
         const musicToggleSpan = musicToggleBtn.querySelector('span');
         const customPlayBtn = document.getElementById('customPlayBtn');
+        const lightrope = document.getElementById('lightrope');
+        const ropeLabel = document.getElementById('ropeLabel');
+        const lightropeWrapper = document.getElementById('lightropeWrapper');
 
-        let wasVideoPlaying = false;
+        // ===== 主题状态 =====
+        const THEME = {
+            PINK: 'pink',
+            DARK: 'dark'
+        };
+        let currentTheme = THEME.PINK;
+        let isVideoEnded = false;
 
-        // ===== 音频启动函数（简洁） =====
-        function startAudio() {
-            // 如果音频已暂停或未开始，则尝试播放
-            if (audio.paused) {
-                audio.play().catch(() => {});
+        // ===== 主题切换 =====
+        function setTheme(theme, animate = true) {
+            const html = document.documentElement;
+            if (theme === THEME.DARK) {
+                html.setAttribute('data-theme', 'dark');
+                currentTheme = THEME.DARK;
+                ropeLabel.textContent = '☀️ 拉我开灯';
+            } else {
+                html.removeAttribute('data-theme');
+                currentTheme = THEME.PINK;
+                ropeLabel.textContent = '🌙 拉我关灯';
+            }
+            if (animate) {
+                document.body.classList.add('theme-transition');
+                setTimeout(() => {
+                    document.body.classList.remove('theme-transition');
+                }, 700);
             }
         }
 
-        // ===== 视频播放事件：只要视频开始播放，就尝试启动背景音乐 =====
+        function toggleTheme() {
+            const next = currentTheme === THEME.PINK ? THEME.DARK : THEME.PINK;
+            setTheme(next);
+            lightrope.classList.remove('pull');
+            void lightrope.offsetWidth;
+            lightrope.classList.add('pull');
+            setTimeout(() => {
+                lightrope.classList.remove('pull');
+            }, 600);
+        }
+
+        // ===== 自动熄灯 (视频结束) =====
+        function autoDim() {
+            if (currentTheme === THEME.PINK) {
+                setTheme(THEME.DARK);
+                isVideoEnded = true;
+                // 熄灯后启动烟花
+                startAutoFireworks();
+            }
+        }
+
+        // ===== 视频事件 =====
         video.addEventListener('play', function() {
-            // 移除 ended 状态（如果存在）
             this.classList.remove('ended');
-            // 恢复 controls（如果被移除）
             if (!this.hasAttribute('controls')) {
                 this.setAttribute('controls', 'controls');
             }
-            // 隐藏自定义播放按钮
             customPlayBtn.style.display = 'none';
-            // ★ 关键：启动背景音乐
             startAudio();
         });
 
-        // ===== 视频结束：隐藏原生控件，显示自定义播放按钮 =====
         video.addEventListener('ended', function() {
             this.removeAttribute('controls');
             customPlayBtn.style.display = 'flex';
+            this.classList.add('ended');
+            autoDim();
         });
 
-        // ===== 自定义播放按钮点击 =====
         customPlayBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             video.play().catch(() => {});
         });
 
-        // ===== 独立的音乐控制按钮 =====
+        // ===== 音频控制 =====
+        function startAudio() {
+            if (audio.paused) {
+                audio.play().catch(() => {});
+            }
+        }
+
         function updateMusicUI() {
             musicToggleSpan.textContent = audio.paused ? '播放' : '静音';
             closeBtn.classList.toggle('hidden', audio.paused);
@@ -266,7 +1217,7 @@
         musicToggleBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             if (audio.paused) {
-                startAudio(); // 使用 startAudio 统一启动
+                startAudio();
             } else {
                 audio.pause();
                 updateMusicUI();
@@ -276,36 +1227,45 @@
         audio.addEventListener('play', updateMusicUI);
         audio.addEventListener('pause', updateMusicUI);
 
-        // ===== 页面加载自动播放（视浏览器策略而定） =====
+        // ===== 页面加载 =====
         window.addEventListener('load', function() {
-            // 尝试自动播放视频和音频
             video.play().catch(() => {});
-            startAudio(); // 尝试启动音频
+            startAudio();
+            setTheme(THEME.PINK, false);
+            // 10秒后自动启动彩带
+            setTimeout(() => {
+                startAutoConfetti();
+            }, 10000);
         });
 
-        // ===== 用户首次交互（点击页面任意处）辅助启动 =====
         document.addEventListener('click', function startOnClick() {
-            // 如果视频未播放，尝试播放
             if (video.paused) {
                 video.play().catch(() => {});
             }
-            // 如果音频未播放，尝试播放
             if (audio.paused) {
                 startAudio();
             }
-            // 移除监听，只触发一次
             document.removeEventListener('click', startOnClick);
         }, { once: true });
 
-        // ===== 彩带系统（不变，略） =====
-        // 以下为彩带、烟花、礼物卡等，与之前完全一致，为节省篇幅省略。
-        // 实际使用时请保留完整彩带代码。
-        // （为了完整性，此处简单留空，但您之前的完整代码中已包含）
+        // ===== 灯绳交互 =====
+        lightropeWrapper.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleTheme();
+        });
 
-        // ===== 礼物卡控制（不变） =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'l' || e.key === 'L') {
+                e.preventDefault();
+                toggleTheme();
+            }
+        });
+
+        // ===== 礼物卡控制 =====
         const giftModal = document.getElementById('giftModal');
         const giftBtn = document.getElementById('giftBtn');
         const closeModalBtn = document.getElementById('closeModalBtn');
+        let wasVideoPlaying = false;
 
         function openGiftModal() {
             wasVideoPlaying = !video.paused;
@@ -345,9 +1305,386 @@
             }
         });
 
-        // ===== 烟火、满天星（可保留原功能） =====
-        // 为保持完整，此处仅作示意，您可保留之前的烟花/彩带代码。
-        console.log('🎂 慧慧妹妹生日快乐！视频播放时自动启动背景音乐。');
-    </script>
+        // ===== 星星生成 =====
+        (function createStars() {
+            const container = document.getElementById('starsContainer');
+            for (let i = 0; i < 120; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = 1 + Math.random() * 3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+                star.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(star);
+            }
+        })();
+
+        // ============================================================
+        //  ===== 彩带（满天星）— 轻量级 =====
+        // ============================================================
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confettiPieces = [];
+        let isConfettiRunning = false;
+        let confettiRAF = null;
+        let autoConfettiTimer = null;
+        let autoConfettiStopTimer = null;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class ConfettiPiece {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.w = 5 + Math.random() * 6;
+                this.h = 3 + Math.random() * 4;
+                this.color = `hsl(${Math.random() * 60 + 320}, 70%, 60%)`;
+                this.speed = 1.5 + Math.random() * 2.5;
+                this.angle = Math.random() * 2 * Math.PI;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.08;
+                this.opacity = 0.7 + Math.random() * 0.3;
+                this.wind = (Math.random() - 0.5) * 0.3;
+            }
+            update() {
+                this.y += this.speed;
+                this.x += Math.sin(this.angle) * 0.2 + this.wind;
+                this.angle += this.rotationSpeed;
+                if (this.y > canvas.height + 20) {
+                    this.y = -20;
+                    this.x = Math.random() * canvas.width;
+                }
+                if (this.x < -20) this.x = canvas.width + 20;
+                if (this.x > canvas.width + 20) this.x = -20;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+                ctx.restore();
+            }
+        }
+
+        function startConfetti(count = 80) {
+            if (isConfettiRunning) return;
+            isConfettiRunning = true;
+            for (let i = 0; i < count; i++) {
+                confettiPieces.push(new ConfettiPiece());
+            }
+            animateConfetti();
+        }
+
+        function stopConfetti() {
+            isConfettiRunning = false;
+            if (confettiRAF) {
+                cancelAnimationFrame(confettiRAF);
+                confettiRAF = null;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettiPieces = [];
+        }
+
+        function animateConfetti() {
+            if (!isConfettiRunning) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (const p of confettiPieces) {
+                p.update();
+                p.draw();
+            }
+            confettiRAF = requestAnimationFrame(animateConfetti);
+        }
+
+        // 自动彩带：10秒后启动，持续120秒
+        function startAutoConfetti() {
+            // 如果已经运行则先停止
+            if (isConfettiRunning) {
+                stopConfetti();
+            }
+            startConfetti(80);
+            // 120秒后停止
+            if (autoConfettiStopTimer) clearTimeout(autoConfettiStopTimer);
+            autoConfettiStopTimer = setTimeout(() => {
+                if (isConfettiRunning) {
+                    stopConfetti();
+                }
+            }, 120000);
+        }
+
+        // 手动点击满天星按钮
+        document.getElementById('confettiBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            // 停止当前，重新开始（不干扰自动计时）
+            if (isConfettiRunning) {
+                stopConfetti();
+                // 如果自动定时器还在，不清除，但我们重新启动，并重置停止计时？
+                // 简单处理：立即启动，并重置停止计时（如果自动计时未结束，延长？）
+                // 我们清除之前的自动停止计时，重新设定2分钟
+                if (autoConfettiStopTimer) clearTimeout(autoConfettiStopTimer);
+                startConfetti(80);
+                autoConfettiStopTimer = setTimeout(() => {
+                    if (isConfettiRunning) stopConfetti();
+                }, 120000);
+            } else {
+                startConfetti(80);
+                if (autoConfettiStopTimer) clearTimeout(autoConfettiStopTimer);
+                autoConfettiStopTimer = setTimeout(() => {
+                    if (isConfettiRunning) stopConfetti();
+                }, 120000);
+            }
+        });
+
+        // ============================================================
+        //  ===== 烟花（轻量级粒子） =====
+        // ============================================================
+        let fireworks = [];
+        let fireworkRAF = null;
+        let autoFireworkTimer = null;
+        let autoFireworkStopTimer = null;
+
+        // 烟花粒子
+        class FireworkParticle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                const angle = Math.random() * 2 * Math.PI;
+                const speed = 2 + Math.random() * 5;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed - 1;
+                this.life = 1;
+                this.decay = 0.01 + Math.random() * 0.02;
+                this.color = color || `hsl(${Math.random() * 60 + 320}, 80%, 60%)`;
+                this.size = 3 + Math.random() * 4;
+                this.gravity = 0.05;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += this.gravity;
+                this.vx *= 0.99;
+                this.life -= this.decay;
+            }
+            draw() {
+                if (this.life <= 0) return;
+                ctx.save();
+                ctx.globalAlpha = this.life * 0.9;
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 8;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * this.life * 0.8, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.restore();
+            }
+            isDead() {
+                return this.life <= 0;
+            }
+        }
+
+        function createFirework(x, y) {
+            const colors = ['#f06292', '#ec407a', '#f48fb1', '#fbbf24', '#ff6b6b', '#ffd93d', '#ff8a80', '#ea80fc'];
+            const count = 30; // 减少粒子数
+            const particles = [];
+            for (let i = 0; i < count; i++) {
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particles.push(new FireworkParticle(x, y, color));
+            }
+            fireworks.push(...particles);
+        }
+
+        function animateFireworks() {
+            if (fireworks.length === 0) {
+                // 没有粒子，停止动画
+                if (fireworkRAF) {
+                    cancelAnimationFrame(fireworkRAF);
+                    fireworkRAF = null;
+                }
+                return;
+            }
+            // 我们使用一个单独的绘制循环，与彩带分开，避免干扰
+            // 但为了性能，可以和彩带共用canvas？但彩带也在绘制，最好合并绘制？
+            // 为了简单，我们使用同一个canvas，但需要合并绘制逻辑。
+            // 但原有的彩带动画循环一直在运行，我们可以在彩带动画里也绘制烟花？
+            // 更好的方式：统一动画循环，但为了兼容，我们让烟花单独使用另一个canvas？或者合并。
+            // 为了不破坏已有逻辑，我们使用一个单独的canvas overlay？但会增加复杂度。
+            // 简单方法：在彩带动画循环里同时绘制烟花？但彩带可能停止。
+            // 我们用独立的requestAnimationFrame，但可能会与彩带的冲突（多个RAF会降低性能）。
+            // 我们改为合并：当烟花存在时，我们在彩带动画中也绘制烟花，但彩带动画可能已停止。
+            // 折中方案：当烟花存在时，启动一个统一动画循环，同时绘制彩带和烟花。
+            // 但我们已有彩带循环，我们可以在彩带循环中添加烟花绘制，但彩带可能停止。
+            // 我们可以让烟花启动时，如果彩带未运行，则启动自己的循环；如果彩带运行，则利用彩带的循环绘制烟花。
+            // 为了实现简单，我们另起一个循环，但如果彩带也在运行，会有两个RAF，可能开销。
+            // 我们决定：烟花独立循环，但减少粒子数和更新频率。
+            if (!fireworkRAF) {
+                function loop() {
+                    if (fireworks.length === 0) {
+                        fireworkRAF = null;
+                        return;
+                    }
+                    // 绘制烟花（在canvas上）
+                    // 注意：我们不清除canvas，因为彩带可能也在绘制，但彩带会清除自己。
+                    // 我们采用增量绘制：不擦除，但烟花粒子会移动，需要擦除之前的痕迹？
+                    // 为了简单，我们使用一个离屏canvas？太复杂。
+                    // 我们让烟花和彩带共用同一个canvas，并且都在同一个动画循环中绘制。
+                    // 但彩带循环会清除整个canvas，烟花绘制就会被清除。
+                    // 因此，我们需要合并绘制。重新设计：我们使用一个主循环，同时处理彩带和烟花。
+                    // 由于原有彩带循环独立，我们将其改造。
+                    // 为了快速解决问题，我们简化：当烟花存在时，我们暂停彩带？不行。
+                    // 最好的方式：重构特效，使用统一的动画循环。
+                    // 由于时间限制，我们采用一种hack：烟花使用一个覆盖的div canvas？但会增加层级。
+                    // 或者我们利用现有canvas，在彩带动画中绘制烟花，但彩带动画可能停止。
+                    // 我们创建一个新的canvas用于烟花，叠加在confetti-canvas之上，但pointer-events: none。
+                    // 这样两者独立，互不干扰。
+                    // 我们动态创建一个新canvas。
+                    // 以下为简化，我们直接使用confetti-canvas，但让彩带和烟花合并绘制。
+                    // 我们修改confetti的animateConfetti，在其中检查fireworks并绘制。
+                    // 但这样耦合了。
+                    // 由于用户要求手机流畅，我们尽量减少canvas数量，保持一个canvas。
+                    // 因此，我们重构动画循环：定义一个主循环，管理彩带和烟花。
+                    // 我们取消原有的confettiRAF，改用统一循环。
+                    // 重新组织代码。
+                    // 为了节省时间，我们在原有confetti循环中添加绘制烟花，并让烟花启动时强制启动confetti循环。
+                    // 修改：当烟花启动时，如果confetti未运行，则启动confetti（但无彩带），只绘制烟花。
+                    // 我们可以让confetti循环一直运行，但仅在彩带激活时绘制彩带。
+                    // 我们重构：isConfettiRunning 表示是否绘制彩带，而有一个全局循环始终运行。
+                    // 为了快速实现，我们采用以下方案：
+                    // 1. 保留confetti循环，但每次绘制前检查是否有烟花需要绘制。
+                    // 2. 当烟花启动时，如果confetti未运行，则启动一个空循环。
+                    // 为避免重复，我们创建统一循环。
+                    // 我决定重写特效部分：使用统一循环，管理彩带和烟花。
+                    // 但为了避免大改，我换一种更简单的方式：
+                    // 我们创建一个新的canvas覆盖在原有canvas之上，用于烟花。
+                    // 这样两者独立，烟花canvas只绘制烟花，彩带canvas只绘制彩带。
+                    // 这样做性能开销小（两个canvas），但各自独立循环。
+                    // 我选择这种方式，因为改动小。
+                    // 创建烟花canvas
+                    let fireworkCanvas = document.getElementById('firework-canvas');
+                    if (!fireworkCanvas) {
+                        fireworkCanvas = document.createElement('canvas');
+                        fireworkCanvas.id = 'firework-canvas';
+                        fireworkCanvas.style.position = 'fixed';
+                        fireworkCanvas.style.top = '0';
+                        fireworkCanvas.style.left = '0';
+                        fireworkCanvas.style.width = '100%';
+                        fireworkCanvas.style.height = '100%';
+                        fireworkCanvas.style.pointerEvents = 'none';
+                        fireworkCanvas.style.zIndex = '9998';
+                        document.body.appendChild(fireworkCanvas);
+                        // 设置尺寸
+                        fireworkCanvas.width = window.innerWidth;
+                        fireworkCanvas.height = window.innerHeight;
+                        window.addEventListener('resize', () => {
+                            fireworkCanvas.width = window.innerWidth;
+                            fireworkCanvas.height = window.innerHeight;
+                        });
+                    }
+                    const fctx = fireworkCanvas.getContext('2d');
+
+                    function drawFireworks() {
+                        if (fireworks.length === 0) {
+                            fctx.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
+                            fireworkRAF = null;
+                            return;
+                        }
+                        fctx.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
+                        // 更新和绘制
+                        for (let i = fireworks.length - 1; i >= 0; i--) {
+                            const p = fireworks[i];
+                            p.update();
+                            if (p.isDead()) {
+                                fireworks.splice(i, 1);
+                                continue;
+                            }
+                            p.draw(fctx);
+                        }
+                        fireworkRAF = requestAnimationFrame(drawFireworks);
+                    }
+                    drawFireworks();
+                }
+                loop();
+            }
+        }
+
+        // 发射烟花（自动）
+        function startAutoFireworks() {
+            // 如果已有自动烟花，清除
+            if (autoFireworkTimer) {
+                clearInterval(autoFireworkTimer);
+                autoFireworkTimer = null;
+            }
+            if (autoFireworkStopTimer) {
+                clearTimeout(autoFireworkStopTimer);
+                autoFireworkStopTimer = null;
+            }
+            // 每0.8秒发射一次，持续20秒
+            let count = 0;
+            const maxBursts = 25; // 20秒 / 0.8 ≈ 25
+            autoFireworkTimer = setInterval(() => {
+                if (count >= maxBursts) {
+                    clearInterval(autoFireworkTimer);
+                    autoFireworkTimer = null;
+                    return;
+                }
+                const x = canvas.width * (0.1 + Math.random() * 0.8);
+                const y = canvas.height * (0.1 + Math.random() * 0.6);
+                createFirework(x, y);
+                // 启动烟花动画（如果未启动）
+                if (!fireworkRAF) {
+                    animateFireworks();
+                }
+                count++;
+            }, 800);
+
+            // 20秒后停止
+            autoFireworkStopTimer = setTimeout(() => {
+                if (autoFireworkTimer) {
+                    clearInterval(autoFireworkTimer);
+                    autoFireworkTimer = null;
+                }
+                // 清空剩余粒子（可选）
+                // 让粒子自然消失
+            }, 20000);
+        }
+
+        // 手动烟花按钮（放烟花）
+        document.getElementById('fireBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            // 在随机位置发射5朵
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const x = canvas.width * (0.1 + Math.random() * 0.8);
+                    const y = canvas.height * (0.1 + Math.random() * 0.6);
+                    createFirework(x, y);
+                    if (!fireworkRAF) {
+                        animateFireworks();
+                    }
+                }, i * 300);
+            }
+        });
+
+        // ============================================================
+        //  ===== 清理 =====
+        // ============================================================
+        window.addEventListener('beforeunload', function() {
+            if (confettiRAF) cancelAnimationFrame(confettiRAF);
+            if (fireworkRAF) cancelAnimationFrame(fireworkRAF);
+            if (autoConfettiStopTimer) clearTimeout(autoConfettiStopTimer);
+            if (autoFireworkTimer) clearInterval(autoFireworkTimer);
+            if (autoFireworkStopTimer) clearTimeout(autoFireworkStopTimer);
+        });
+
+        console.log('🎀 慧慧妹妹生日快乐！特效已优化：轻量烟花，自动彩带10秒后飘落2分钟，熄灯后烟花绽放20秒。');
+    })();
+</script>
 </body>
 </html>
