@@ -141,13 +141,8 @@
             object-fit: contain;
         }
         @keyframes float {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         .title {
@@ -173,13 +168,8 @@
             color: inherit;
         }
         @keyframes shimmer {
-            0%,
-            100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .subtitle {
@@ -605,22 +595,12 @@
             transition: color var(--transition-duration) ease;
         }
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         @keyframes scaleIn {
-            from {
-                transform: scale(0.9) translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1) translateY(0);
-                opacity: 1;
-            }
+            from { transform: scale(0.9) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
         }
 
         #confetti-canvas {
@@ -654,14 +634,8 @@
             transition: background var(--transition-duration) ease;
         }
         @keyframes twinkle {
-            0% {
-                opacity: 0.1;
-                transform: scale(0.8);
-            }
-            100% {
-                opacity: 0.8;
-                transform: scale(1.2);
-            }
+            0% { opacity: 0.1; transform: scale(0.8); }
+            100% { opacity: 0.8; transform: scale(1.2); }
         }
 
         .footer-hint {
@@ -757,18 +731,10 @@
             animation: pullRope 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         @keyframes pullRope {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            30% {
-                transform: translateY(-18px) rotate(-4deg);
-            }
-            60% {
-                transform: translateY(-6px) rotate(2deg);
-            }
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
+            0% { transform: translateY(0) rotate(0deg); }
+            30% { transform: translateY(-18px) rotate(-4deg); }
+            60% { transform: translateY(-6px) rotate(2deg); }
+            100% { transform: translateY(0) rotate(0deg); }
         }
 
         .rope-string {
@@ -1063,10 +1029,11 @@
         </span>
     </div>
 
+    <!-- ===== 按钮区 ===== -->
     <div class="actions">
         <button id="fireBtn" class="btn-primary"><i class="fas fa-rocket"></i> 放烟花</button>
-        <button id="confettiBtn"><i class="fas fa-sparkles"></i> 满天星</button>
-        <button id="musicToggleBtn"><i class="fas fa-music"></i> <span>静音</span></button>
+        <button id="confettiBtn"><i class="far fa-star"></i> <span id="confettiToggleText">清屏</span></button>
+        <button id="musicToggleBtn"><i class="fas fa-music"></i> <span id="musicToggleText">静音</span></button>
     </div>
 
     <div class="footer-hint">
@@ -1078,6 +1045,7 @@
         <span class="hint-heart"><i class="fas fa-heart"></i></span>
     </div>
 
+    <!-- ===== 礼物按钮 ===== -->
     <div class="gift-button-wrapper">
         <button id="giftBtn"><i class="fas fa-gift"></i> 打开礼物</button>
     </div>
@@ -1091,9 +1059,9 @@
         <h2><i class="fas fa-car"></i> 车车装饰全包卡</h2>
         <div class="desc">✦ 凭此卡可兑换 ✦</div>
         <div class="item-list">
-            <p><i class="fas fa-check-circle"></i> 电动车所有装饰</p>
-            <p><i class="fas fa-check-circle"></i> 包含挡风雨披等装备</p>
+            <p><i class="fas fa-check-circle"></i> 电动车所有配饰</p>
             <p><i class="fas fa-check-circle"></i> 选购后凭此卡全额报销</p>
+            <p><i class="fas fa-check-circle"></i> 或者兑换万能许愿卡</p>
         </div>
         <div class="signature">
             <i class="fas fa-heart"></i> 永远爱你的哥哥 <i class="fas fa-heart"></i>
@@ -1118,11 +1086,13 @@
         const audio = document.getElementById('bgm');
         const closeBtn = document.getElementById('audioCloseBtn');
         const musicToggleBtn = document.getElementById('musicToggleBtn');
-        const musicToggleSpan = musicToggleBtn.querySelector('span');
+        const musicToggleText = document.getElementById('musicToggleText');
         const customPlayBtn = document.getElementById('customPlayBtn');
         const lightrope = document.getElementById('lightrope');
         const ropeLabel = document.getElementById('ropeLabel');
         const lightropeWrapper = document.getElementById('lightropeWrapper');
+        const confettiBtn = document.getElementById('confettiBtn');
+        const confettiToggleText = document.getElementById('confettiToggleText');
 
         // ===== 主题状态 =====
         const THEME = {
@@ -1155,6 +1125,16 @@
         function toggleTheme() {
             const next = currentTheme === THEME.PINK ? THEME.DARK : THEME.PINK;
             setTheme(next);
+            // 如果切换到暗模式且彩带正在运行，停止它（但保留用户可重新开启）
+            if (next === THEME.DARK && confettiActive) {
+                if (confettiStartTimer) {
+                    clearTimeout(confettiStartTimer);
+                    confettiStartTimer = null;
+                }
+                stopConfetti();
+                confettiActive = false;
+                confettiToggleText.textContent = '撒花';
+            }
             lightrope.classList.remove('pull');
             void lightrope.offsetWidth;
             lightrope.classList.add('pull');
@@ -1168,12 +1148,23 @@
             if (currentTheme === THEME.PINK) {
                 setTheme(THEME.DARK);
                 isVideoEnded = true;
-                // 熄灯后启动烟花
+                if (confettiActive) {
+                    if (confettiStartTimer) {
+                        clearTimeout(confettiStartTimer);
+                        confettiStartTimer = null;
+                    }
+                    stopConfetti();
+                    confettiActive = false;
+                    confettiToggleText.textContent = '撒花';
+                }
+                // 熄灯后启动烟花（改进版）
                 startAutoFireworks();
             }
         }
 
         // ===== 视频事件 =====
+        let confettiStartTimer = null;
+
         video.addEventListener('play', function() {
             this.classList.remove('ended');
             if (!this.hasAttribute('controls')) {
@@ -1181,12 +1172,31 @@
             }
             customPlayBtn.style.display = 'none';
             startAudio();
+
+            // 如果视频未结束且彩带开关为开且尚未运行，则设定10秒后启动
+            if (!isVideoEnded && confettiActive && !isConfettiRunning) {
+                if (confettiStartTimer) {
+                    clearTimeout(confettiStartTimer);
+                    confettiStartTimer = null;
+                }
+                confettiStartTimer = setTimeout(() => {
+                    if (!isVideoEnded && confettiActive && !isConfettiRunning) {
+                        startConfetti(60); // 彩带粒子减为60
+                    }
+                    confettiStartTimer = null;
+                }, 10000);
+            }
         });
 
         video.addEventListener('ended', function() {
             this.removeAttribute('controls');
             customPlayBtn.style.display = 'flex';
             this.classList.add('ended');
+            isVideoEnded = true;
+            if (confettiStartTimer) {
+                clearTimeout(confettiStartTimer);
+                confettiStartTimer = null;
+            }
             autoDim();
         });
 
@@ -1203,7 +1213,7 @@
         }
 
         function updateMusicUI() {
-            musicToggleSpan.textContent = audio.paused ? '播放' : '静音';
+            musicToggleText.textContent = audio.paused ? '播放' : '静音';
             closeBtn.classList.toggle('hidden', audio.paused);
         }
 
@@ -1232,10 +1242,8 @@
             video.play().catch(() => {});
             startAudio();
             setTheme(THEME.PINK, false);
-            // 10秒后自动启动彩带
-            setTimeout(() => {
-                startAutoConfetti();
-            }, 10000);
+            confettiActive = true;
+            confettiToggleText.textContent = '清屏';
         });
 
         document.addEventListener('click', function startOnClick() {
@@ -1305,10 +1313,11 @@
             }
         });
 
-        // ===== 星星生成 =====
+        // ===== 星星生成（减少数量，提升性能） =====
         (function createStars() {
             const container = document.getElementById('starsContainer');
-            for (let i = 0; i < 120; i++) {
+            const count = 80; // 从120减少到80
+            for (let i = 0; i < count; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 const size = 1 + Math.random() * 3;
@@ -1323,15 +1332,14 @@
         })();
 
         // ============================================================
-        //  ===== 彩带（满天星）— 轻量级 =====
+        //  ===== 彩带（满天星）— 轻量级，开关控制 =====
         // ============================================================
         const canvas = document.getElementById('confetti-canvas');
         const ctx = canvas.getContext('2d');
         let confettiPieces = [];
         let isConfettiRunning = false;
         let confettiRAF = null;
-        let autoConfettiTimer = null;
-        let autoConfettiStopTimer = null;
+        let confettiActive = true;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -1344,14 +1352,14 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height - canvas.height;
-                this.w = 5 + Math.random() * 6;
-                this.h = 3 + Math.random() * 4;
+                this.w = 4 + Math.random() * 5; // 稍小一点
+                this.h = 2 + Math.random() * 4;
                 this.color = `hsl(${Math.random() * 60 + 320}, 70%, 60%)`;
-                this.speed = 1.5 + Math.random() * 2.5;
+                this.speed = 1.2 + Math.random() * 2.2; // 速度略慢
                 this.angle = Math.random() * 2 * Math.PI;
-                this.rotationSpeed = (Math.random() - 0.5) * 0.08;
-                this.opacity = 0.7 + Math.random() * 0.3;
-                this.wind = (Math.random() - 0.5) * 0.3;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.06;
+                this.opacity = 0.6 + Math.random() * 0.4;
+                this.wind = (Math.random() - 0.5) * 0.2;
             }
             update() {
                 this.y += this.speed;
@@ -1375,7 +1383,7 @@
             }
         }
 
-        function startConfetti(count = 80) {
+        function startConfetti(count = 60) { // 粒子数从80减到60
             if (isConfettiRunning) return;
             isConfettiRunning = true;
             for (let i = 0; i < count; i++) {
@@ -1404,67 +1412,55 @@
             confettiRAF = requestAnimationFrame(animateConfetti);
         }
 
-        // 自动彩带：10秒后启动，持续120秒
-        function startAutoConfetti() {
-            // 如果已经运行则先停止
-            if (isConfettiRunning) {
-                stopConfetti();
-            }
-            startConfetti(80);
-            // 120秒后停止
-            if (autoConfettiStopTimer) clearTimeout(autoConfettiStopTimer);
-            autoConfettiStopTimer = setTimeout(() => {
-                if (isConfettiRunning) {
-                    stopConfetti();
+        // ===== 满天星按钮：开关控制 =====
+        function toggleConfetti() {
+            if (confettiActive) {
+                if (confettiStartTimer) {
+                    clearTimeout(confettiStartTimer);
+                    confettiStartTimer = null;
                 }
-            }, 120000);
+                stopConfetti();
+                confettiActive = false;
+                confettiToggleText.textContent = '撒花';
+            } else {
+                confettiActive = true;
+                if (confettiStartTimer) {
+                    clearTimeout(confettiStartTimer);
+                    confettiStartTimer = null;
+                }
+                if (!isConfettiRunning) {
+                    startConfetti(60);
+                }
+                confettiToggleText.textContent = '清屏';
+            }
         }
 
-        // 手动点击满天星按钮
-        document.getElementById('confettiBtn').addEventListener('click', function(e) {
+        confettiBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            // 停止当前，重新开始（不干扰自动计时）
-            if (isConfettiRunning) {
-                stopConfetti();
-                // 如果自动定时器还在，不清除，但我们重新启动，并重置停止计时？
-                // 简单处理：立即启动，并重置停止计时（如果自动计时未结束，延长？）
-                // 我们清除之前的自动停止计时，重新设定2分钟
-                if (autoConfettiStopTimer) clearTimeout(autoConfettiStopTimer);
-                startConfetti(80);
-                autoConfettiStopTimer = setTimeout(() => {
-                    if (isConfettiRunning) stopConfetti();
-                }, 120000);
-            } else {
-                startConfetti(80);
-                if (autoConfettiStopTimer) clearTimeout(autoConfettiStopTimer);
-                autoConfettiStopTimer = setTimeout(() => {
-                    if (isConfettiRunning) stopConfetti();
-                }, 120000);
-            }
+            toggleConfetti();
         });
 
         // ============================================================
-        //  ===== 烟花（轻量级粒子） =====
+        //  ===== 烟花（改进：少量多次，持续更久，更流畅） =====
         // ============================================================
         let fireworks = [];
         let fireworkRAF = null;
         let autoFireworkTimer = null;
         let autoFireworkStopTimer = null;
 
-        // 烟花粒子
         class FireworkParticle {
             constructor(x, y, color) {
                 this.x = x;
                 this.y = y;
                 const angle = Math.random() * 2 * Math.PI;
-                const speed = 2 + Math.random() * 5;
+                const speed = 1.5 + Math.random() * 4.5; // 速度稍降
                 this.vx = Math.cos(angle) * speed;
                 this.vy = Math.sin(angle) * speed - 1;
                 this.life = 1;
-                this.decay = 0.01 + Math.random() * 0.02;
+                this.decay = 0.008 + Math.random() * 0.018;
                 this.color = color || `hsl(${Math.random() * 60 + 320}, 80%, 60%)`;
-                this.size = 3 + Math.random() * 4;
-                this.gravity = 0.05;
+                this.size = 2 + Math.random() * 3.5; // 粒子变小
+                this.gravity = 0.04;
             }
             update() {
                 this.x += this.vx;
@@ -1473,27 +1469,26 @@
                 this.vx *= 0.99;
                 this.life -= this.decay;
             }
-            draw() {
+            draw(ctxOverride) {
+                const c = ctxOverride || ctx;
                 if (this.life <= 0) return;
-                ctx.save();
-                ctx.globalAlpha = this.life * 0.9;
-                ctx.shadowColor = this.color;
-                ctx.shadowBlur = 8;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size * this.life * 0.8, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-                ctx.shadowBlur = 0;
-                ctx.restore();
+                c.save();
+                c.globalAlpha = this.life * 0.9;
+                c.shadowColor = this.color;
+                c.shadowBlur = 6;
+                c.beginPath();
+                c.arc(this.x, this.y, this.size * this.life * 0.8, 0, Math.PI * 2);
+                c.fillStyle = this.color;
+                c.fill();
+                c.shadowBlur = 0;
+                c.restore();
             }
-            isDead() {
-                return this.life <= 0;
-            }
+            isDead() { return this.life <= 0; }
         }
 
         function createFirework(x, y) {
             const colors = ['#f06292', '#ec407a', '#f48fb1', '#fbbf24', '#ff6b6b', '#ffd93d', '#ff8a80', '#ea80fc'];
-            const count = 30; // 减少粒子数
+            const count = 12; // 从15减到12
             const particles = [];
             for (let i = 0; i < count; i++) {
                 const color = colors[Math.floor(Math.random() * colors.length)];
@@ -1502,122 +1497,62 @@
             fireworks.push(...particles);
         }
 
+        let fireworkCanvas = null;
+        let fctx = null;
+
+        function ensureFireworkCanvas() {
+            if (!fireworkCanvas) {
+                fireworkCanvas = document.createElement('canvas');
+                fireworkCanvas.id = 'firework-canvas';
+                fireworkCanvas.style.position = 'fixed';
+                fireworkCanvas.style.top = '0';
+                fireworkCanvas.style.left = '0';
+                fireworkCanvas.style.width = '100%';
+                fireworkCanvas.style.height = '100%';
+                fireworkCanvas.style.pointerEvents = 'none';
+                fireworkCanvas.style.zIndex = '9998';
+                document.body.appendChild(fireworkCanvas);
+                fireworkCanvas.width = window.innerWidth;
+                fireworkCanvas.height = window.innerHeight;
+                window.addEventListener('resize', () => {
+                    if (fireworkCanvas) {
+                        fireworkCanvas.width = window.innerWidth;
+                        fireworkCanvas.height = window.innerHeight;
+                    }
+                });
+                fctx = fireworkCanvas.getContext('2d');
+            }
+            return fctx;
+        }
+
         function animateFireworks() {
             if (fireworks.length === 0) {
-                // 没有粒子，停止动画
                 if (fireworkRAF) {
                     cancelAnimationFrame(fireworkRAF);
                     fireworkRAF = null;
                 }
+                if (fireworkCanvas) {
+                    const c = fctx || fireworkCanvas.getContext('2d');
+                    c.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
+                }
                 return;
             }
-            // 我们使用一个单独的绘制循环，与彩带分开，避免干扰
-            // 但为了性能，可以和彩带共用canvas？但彩带也在绘制，最好合并绘制？
-            // 为了简单，我们使用同一个canvas，但需要合并绘制逻辑。
-            // 但原有的彩带动画循环一直在运行，我们可以在彩带动画里也绘制烟花？
-            // 更好的方式：统一动画循环，但为了兼容，我们让烟花单独使用另一个canvas？或者合并。
-            // 为了不破坏已有逻辑，我们使用一个单独的canvas overlay？但会增加复杂度。
-            // 简单方法：在彩带动画循环里同时绘制烟花？但彩带可能停止。
-            // 我们用独立的requestAnimationFrame，但可能会与彩带的冲突（多个RAF会降低性能）。
-            // 我们改为合并：当烟花存在时，我们在彩带动画中也绘制烟花，但彩带动画可能已停止。
-            // 折中方案：当烟花存在时，启动一个统一动画循环，同时绘制彩带和烟花。
-            // 但我们已有彩带循环，我们可以在彩带循环中添加烟花绘制，但彩带可能停止。
-            // 我们可以让烟花启动时，如果彩带未运行，则启动自己的循环；如果彩带运行，则利用彩带的循环绘制烟花。
-            // 为了实现简单，我们另起一个循环，但如果彩带也在运行，会有两个RAF，可能开销。
-            // 我们决定：烟花独立循环，但减少粒子数和更新频率。
-            if (!fireworkRAF) {
-                function loop() {
-                    if (fireworks.length === 0) {
-                        fireworkRAF = null;
-                        return;
-                    }
-                    // 绘制烟花（在canvas上）
-                    // 注意：我们不清除canvas，因为彩带可能也在绘制，但彩带会清除自己。
-                    // 我们采用增量绘制：不擦除，但烟花粒子会移动，需要擦除之前的痕迹？
-                    // 为了简单，我们使用一个离屏canvas？太复杂。
-                    // 我们让烟花和彩带共用同一个canvas，并且都在同一个动画循环中绘制。
-                    // 但彩带循环会清除整个canvas，烟花绘制就会被清除。
-                    // 因此，我们需要合并绘制。重新设计：我们使用一个主循环，同时处理彩带和烟花。
-                    // 由于原有彩带循环独立，我们将其改造。
-                    // 为了快速解决问题，我们简化：当烟花存在时，我们暂停彩带？不行。
-                    // 最好的方式：重构特效，使用统一的动画循环。
-                    // 由于时间限制，我们采用一种hack：烟花使用一个覆盖的div canvas？但会增加层级。
-                    // 或者我们利用现有canvas，在彩带动画中绘制烟花，但彩带动画可能停止。
-                    // 我们创建一个新的canvas用于烟花，叠加在confetti-canvas之上，但pointer-events: none。
-                    // 这样两者独立，互不干扰。
-                    // 我们动态创建一个新canvas。
-                    // 以下为简化，我们直接使用confetti-canvas，但让彩带和烟花合并绘制。
-                    // 我们修改confetti的animateConfetti，在其中检查fireworks并绘制。
-                    // 但这样耦合了。
-                    // 由于用户要求手机流畅，我们尽量减少canvas数量，保持一个canvas。
-                    // 因此，我们重构动画循环：定义一个主循环，管理彩带和烟花。
-                    // 我们取消原有的confettiRAF，改用统一循环。
-                    // 重新组织代码。
-                    // 为了节省时间，我们在原有confetti循环中添加绘制烟花，并让烟花启动时强制启动confetti循环。
-                    // 修改：当烟花启动时，如果confetti未运行，则启动confetti（但无彩带），只绘制烟花。
-                    // 我们可以让confetti循环一直运行，但仅在彩带激活时绘制彩带。
-                    // 我们重构：isConfettiRunning 表示是否绘制彩带，而有一个全局循环始终运行。
-                    // 为了快速实现，我们采用以下方案：
-                    // 1. 保留confetti循环，但每次绘制前检查是否有烟花需要绘制。
-                    // 2. 当烟花启动时，如果confetti未运行，则启动一个空循环。
-                    // 为避免重复，我们创建统一循环。
-                    // 我决定重写特效部分：使用统一循环，管理彩带和烟花。
-                    // 但为了避免大改，我换一种更简单的方式：
-                    // 我们创建一个新的canvas覆盖在原有canvas之上，用于烟花。
-                    // 这样两者独立，烟花canvas只绘制烟花，彩带canvas只绘制彩带。
-                    // 这样做性能开销小（两个canvas），但各自独立循环。
-                    // 我选择这种方式，因为改动小。
-                    // 创建烟花canvas
-                    let fireworkCanvas = document.getElementById('firework-canvas');
-                    if (!fireworkCanvas) {
-                        fireworkCanvas = document.createElement('canvas');
-                        fireworkCanvas.id = 'firework-canvas';
-                        fireworkCanvas.style.position = 'fixed';
-                        fireworkCanvas.style.top = '0';
-                        fireworkCanvas.style.left = '0';
-                        fireworkCanvas.style.width = '100%';
-                        fireworkCanvas.style.height = '100%';
-                        fireworkCanvas.style.pointerEvents = 'none';
-                        fireworkCanvas.style.zIndex = '9998';
-                        document.body.appendChild(fireworkCanvas);
-                        // 设置尺寸
-                        fireworkCanvas.width = window.innerWidth;
-                        fireworkCanvas.height = window.innerHeight;
-                        window.addEventListener('resize', () => {
-                            fireworkCanvas.width = window.innerWidth;
-                            fireworkCanvas.height = window.innerHeight;
-                        });
-                    }
-                    const fctx = fireworkCanvas.getContext('2d');
-
-                    function drawFireworks() {
-                        if (fireworks.length === 0) {
-                            fctx.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
-                            fireworkRAF = null;
-                            return;
-                        }
-                        fctx.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
-                        // 更新和绘制
-                        for (let i = fireworks.length - 1; i >= 0; i--) {
-                            const p = fireworks[i];
-                            p.update();
-                            if (p.isDead()) {
-                                fireworks.splice(i, 1);
-                                continue;
-                            }
-                            p.draw(fctx);
-                        }
-                        fireworkRAF = requestAnimationFrame(drawFireworks);
-                    }
-                    drawFireworks();
+            const c = ensureFireworkCanvas();
+            c.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
+            for (let i = fireworks.length - 1; i >= 0; i--) {
+                const p = fireworks[i];
+                p.update();
+                if (p.isDead()) {
+                    fireworks.splice(i, 1);
+                    continue;
                 }
-                loop();
+                p.draw(c);
             }
+            fireworkRAF = requestAnimationFrame(animateFireworks);
         }
 
-        // 发射烟花（自动）
+        // ---- 自动烟花：持续更久（约30秒），间隔600ms，共50朵 ----
         function startAutoFireworks() {
-            // 如果已有自动烟花，清除
             if (autoFireworkTimer) {
                 clearInterval(autoFireworkTimer);
                 autoFireworkTimer = null;
@@ -1626,64 +1561,61 @@
                 clearTimeout(autoFireworkStopTimer);
                 autoFireworkStopTimer = null;
             }
-            // 每0.8秒发射一次，持续20秒
             let count = 0;
-            const maxBursts = 25; // 20秒 / 0.8 ≈ 25
+            const maxBursts = 50; // 从40增加到50
             autoFireworkTimer = setInterval(() => {
                 if (count >= maxBursts) {
                     clearInterval(autoFireworkTimer);
                     autoFireworkTimer = null;
                     return;
                 }
-                const x = canvas.width * (0.1 + Math.random() * 0.8);
-                const y = canvas.height * (0.1 + Math.random() * 0.6);
+                const x = window.innerWidth * (0.1 + Math.random() * 0.8);
+                const y = window.innerHeight * (0.1 + Math.random() * 0.6);
                 createFirework(x, y);
-                // 启动烟花动画（如果未启动）
                 if (!fireworkRAF) {
                     animateFireworks();
                 }
                 count++;
-            }, 800);
+            }, 600);
 
-            // 20秒后停止
             autoFireworkStopTimer = setTimeout(() => {
                 if (autoFireworkTimer) {
                     clearInterval(autoFireworkTimer);
                     autoFireworkTimer = null;
                 }
-                // 清空剩余粒子（可选）
-                // 让粒子自然消失
-            }, 20000);
+            }, maxBursts * 600 + 1000);
         }
 
-        // 手动烟花按钮（放烟花）
+        // ---- 手动烟花：持续约5秒，每300ms一朵，共约16朵 ----
         document.getElementById('fireBtn').addEventListener('click', function(e) {
             e.stopPropagation();
-            // 在随机位置发射5朵
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    const x = canvas.width * (0.1 + Math.random() * 0.8);
-                    const y = canvas.height * (0.1 + Math.random() * 0.6);
-                    createFirework(x, y);
-                    if (!fireworkRAF) {
-                        animateFireworks();
-                    }
-                }, i * 300);
-            }
+            let count = 0;
+            const maxCount = 16;
+            const interval = setInterval(() => {
+                if (count >= maxCount) {
+                    clearInterval(interval);
+                    return;
+                }
+                const x = window.innerWidth * (0.1 + Math.random() * 0.8);
+                const y = window.innerHeight * (0.1 + Math.random() * 0.6);
+                createFirework(x, y);
+                if (!fireworkRAF) {
+                    animateFireworks();
+                }
+                count++;
+            }, 300);
         });
 
-        // ============================================================
-        //  ===== 清理 =====
-        // ============================================================
+        // ===== 清理 =====
         window.addEventListener('beforeunload', function() {
             if (confettiRAF) cancelAnimationFrame(confettiRAF);
             if (fireworkRAF) cancelAnimationFrame(fireworkRAF);
-            if (autoConfettiStopTimer) clearTimeout(autoConfettiStopTimer);
+            if (confettiStartTimer) clearTimeout(confettiStartTimer);
             if (autoFireworkTimer) clearInterval(autoFireworkTimer);
             if (autoFireworkStopTimer) clearTimeout(autoFireworkStopTimer);
         });
 
-        console.log('🎀 慧慧妹妹生日快乐！特效已优化：轻量烟花，自动彩带10秒后飘落2分钟，熄灯后烟花绽放20秒。');
+        console.log('🎀 慧慧妹妹生日快乐！性能优化版：星星80颗，彩带60片，烟花粒子12个，手动持续5秒，自动持续约30秒，手机流畅。');
     })();
 </script>
 </body>
