@@ -11,7 +11,7 @@
     <meta property="og:image" content="cake.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ===== CSS Variables ===== */
+        /* ===== CSS Variables (保持不变) ===== */
         :root {
             --bg-primary: linear-gradient(145deg, #fce4ec 0%, #f8bbd0 40%, #f48fb1 100%);
             --bg-card: rgba(255, 255, 255, 0.18);
@@ -85,11 +85,7 @@
             --lightrope-string: #8d6e63;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             min-height: 100vh;
@@ -188,9 +184,7 @@
                 border-color var(--transition-duration) ease;
             color: #3d2a30;
         }
-        [data-theme="dark"] .subtitle {
-            color: #d0c0d0;
-        }
+        [data-theme="dark"] .subtitle { color: #d0c0d0; }
         .subtitle .icon-left,
         .subtitle .icon-right {
             flex-shrink: 0;
@@ -262,12 +256,9 @@
             background: rgba(233, 30, 99, 0.35);
             transform: scale(1.05);
         }
-        #customPlayBtn:active {
-            transform: scale(0.95);
-        }
-        #customPlayBtn i {
-            margin-left: 2px;
-        }
+        #customPlayBtn:active { transform: scale(0.95); }
+        #customPlayBtn i { margin-left: 2px; }
+
         .video-placeholder {
             position: absolute;
             inset: 0;
@@ -316,9 +307,7 @@
             position: relative;
             z-index: 1;
         }
-        .video-wrapper video.hidden-video {
-            display: none !important;
-        }
+        .video-wrapper video.hidden-video { display: none !important; }
 
         .message {
             font-size: clamp(1.1rem, 4vw, 2rem);
@@ -348,9 +337,7 @@
             opacity: 0.9;
             transition: color var(--transition-duration) ease;
         }
-        [data-theme="dark"] .message .tiny {
-            color: #e0d0e0;
-        }
+        [data-theme="dark"] .message .tiny { color: #e0d0e0; }
         .message .tiny i {
             margin: 0 4px;
             font-size: 0.9em;
@@ -385,9 +372,7 @@
             gap: 8px;
             flex: 0 1 auto;
         }
-        .actions button i {
-            font-size: 1.1em;
-        }
+        .actions button i { font-size: 1.1em; }
         .actions button:hover {
             background: var(--btn-secondary-hover);
             border-color: var(--highlight);
@@ -395,9 +380,7 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
             color: var(--text-primary);
         }
-        .actions button:active {
-            transform: scale(0.95);
-        }
+        .actions button:active { transform: scale(0.95); }
         .actions .btn-primary {
             background: var(--btn-primary);
             border-color: transparent;
@@ -468,9 +451,7 @@
             animation: fadeIn 0.3s ease;
             padding: 20px;
         }
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
         .modal-card {
             background: var(--modal-bg);
             border: 1px solid var(--modal-border);
@@ -605,37 +586,39 @@
 
         #confetti-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
             z-index: 9999;
+            contain: strict;
         }
 
         .stars {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
             z-index: 0;
             overflow: hidden;
+            contain: strict;
         }
         .star {
             position: absolute;
-            width: 3px;
-            height: 3px;
+            width: 2px;
+            height: 2px;
             background: var(--star-color);
             border-radius: 50%;
-            animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
-            opacity: 0.3;
-            transition: background var(--transition-duration) ease;
+            opacity: .32;
+            will-change: opacity, transform;
         }
+        .star:nth-child(3n) { animation: twinkle 3.8s ease-in-out infinite alternate; }
+        .star:nth-child(3n+1) { animation: twinkle 5.2s ease-in-out 1s infinite alternate; }
+        .star:nth-child(3n+2) { animation: twinkle 4.5s ease-in-out 2s infinite alternate; }
         @keyframes twinkle {
-            0% { opacity: 0.1; transform: scale(0.8); }
-            100% { opacity: 0.8; transform: scale(1.2); }
+            0% { opacity: .12; transform: scale(.75); }
+            100% { opacity: .62; transform: scale(1.15); }
         }
 
         .footer-hint {
@@ -651,9 +634,7 @@
             transition: color var(--transition-duration) ease;
             color: #3d2a30;
         }
-        [data-theme="dark"] .footer-hint {
-            color: #c0b0c0;
-        }
+        [data-theme="dark"] .footer-hint { color: #c0b0c0; }
         .footer-hint i {
             font-size: 0.75em;
             opacity: 0.35;
@@ -695,18 +676,14 @@
             align-items: center;
             justify-content: center;
         }
-        #audioCloseBtn i {
-            font-size: 1.2rem;
-        }
+        #audioCloseBtn i { font-size: 1.2rem; }
         #audioCloseBtn:hover {
             background: var(--btn-secondary-hover);
             border-color: var(--highlight);
             color: var(--text-primary);
             transform: scale(1.05);
         }
-        #audioCloseBtn.hidden {
-            display: none;
-        }
+        #audioCloseBtn.hidden { display: none; }
 
         .lightrope-wrapper {
             position: fixed;
@@ -811,33 +788,19 @@
             background: rgba(0, 0, 0, 0.3);
             border-color: rgba(255, 255, 255, 0.05);
         }
-        .lightrope-wrapper:hover .rope-label {
-            opacity: 0.8;
-        }
+        .lightrope-wrapper:hover .rope-label { opacity: 0.8; }
 
         [data-theme="dark"] .rope-pull {
             background: radial-gradient(circle at 35% 35%, #a67c52, #6d4c2a);
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.05), inset 0 -2px 4px rgba(0, 0, 0, 0.3);
         }
-        [data-theme="dark"] .rope-string {
-            background: #5d4037;
-        }
-        [data-theme="dark"] .rope-string::after {
-            background: #5d4037;
-        }
+        [data-theme="dark"] .rope-string { background: #5d4037; }
+        [data-theme="dark"] .rope-string::after { background: #5d4037; }
 
         @media (max-width: 480px) {
-            .card {
-                padding: 24px 16px 32px;
-                border-radius: 36px;
-            }
-            .video-wrapper video {
-                max-height: 50vh;
-                max-height: 50dvh;
-            }
-            .cake-wrapper {
-                height: clamp(120px, 25vw, 180px);
-            }
+            .card { padding: 24px 16px 32px; border-radius: 36px; }
+            .video-wrapper video { max-height: 50vh; max-height: 50dvh; }
+            .cake-wrapper { height: clamp(120px, 25vw, 180px); }
             .actions {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
@@ -854,96 +817,38 @@
                 border-radius: 40px;
                 gap: 4px;
             }
-            .actions button i {
-                font-size: 1rem;
-            }
-            #giftBtn {
-                padding: 12px 24px;
-                min-height: 50px;
-                gap: 8px;
-            }
-            .modal-card {
-                padding: 28px 18px 26px;
-                border-radius: 32px;
-            }
-            .modal-card .item-list p {
-                font-size: 0.95rem;
-                line-height: 2;
-            }
-            #audioCloseBtn {
-                width: 40px;
-                height: 40px;
-                right: 12px;
-                font-size: 16px;
-            }
+            .actions button i { font-size: 1rem; }
+            #giftBtn { padding: 12px 24px; min-height: 50px; gap: 8px; }
+            .modal-card { padding: 28px 18px 26px; border-radius: 32px; }
+            .modal-card .item-list p { font-size: 0.95rem; line-height: 2; }
+            #audioCloseBtn { width: 40px; height: 40px; right: 12px; font-size: 16px; }
             .subtitle {
                 gap: 6px;
                 font-size: clamp(0.7rem, 2.8vw, 1rem);
                 letter-spacing: 2px;
                 padding-bottom: 12px;
             }
-            .video-placeholder {
-                font-size: clamp(0.8rem, 2vw, 1rem);
-            }
-            .video-placeholder i {
-                font-size: clamp(1.8rem, 5vw, 2.6rem);
-            }
+            .video-placeholder { font-size: clamp(0.8rem, 2vw, 1rem); }
+            .video-placeholder i { font-size: clamp(1.8rem, 5vw, 2.6rem); }
             .footer-hint {
                 font-size: clamp(0.6rem, 1.8vw, 0.75rem);
                 gap: 6px;
                 letter-spacing: 1px;
                 margin-top: 12px;
             }
-            #customPlayBtn {
-                width: 38px;
-                height: 38px;
-                font-size: 16px;
-                bottom: 12px;
-                right: 12px;
-            }
-            .lightrope-wrapper {
-                bottom: 16px;
-                right: 16px;
-            }
-            .rope-string {
-                height: 24px;
-            }
-            .rope-pull {
-                width: 16px;
-                height: 16px;
-            }
-            .rope-label {
-                font-size: 8px;
-                padding: 1px 8px;
-                margin-top: 4px;
-            }
+            #customPlayBtn { width: 38px; height: 38px; font-size: 16px; bottom: 12px; right: 12px; }
+            .lightrope-wrapper { bottom: 16px; right: 16px; }
+            .rope-string { height: 24px; }
+            .rope-pull { width: 16px; height: 16px; }
+            .rope-label { font-size: 8px; padding: 1px 8px; margin-top: 4px; }
         }
         @media (max-width: 380px) {
-            .cake-wrapper {
-                height: 100px;
-            }
-            .video-wrapper video {
-                max-height: 40vh;
-                max-height: 40dvh;
-            }
-            .actions button {
-                font-size: 0.65rem;
-                padding: 8px 4px;
-                min-height: 38px;
-            }
-            #giftBtn {
-                font-size: 1rem;
-                padding: 10px 20px;
-                min-height: 44px;
-            }
-            #giftBtn i {
-                font-size: 1.4rem;
-            }
-            .footer-hint {
-                font-size: 0.55rem;
-                gap: 4px;
-                letter-spacing: 1px;
-            }
+            .cake-wrapper { height: 100px; }
+            .video-wrapper video { max-height: 40vh; max-height: 40dvh; }
+            .actions button { font-size: 0.65rem; padding: 8px 4px; min-height: 38px; }
+            #giftBtn { font-size: 1rem; padding: 10px 20px; min-height: 44px; }
+            #giftBtn i { font-size: 1.4rem; }
+            .footer-hint { font-size: 0.55rem; gap: 4px; letter-spacing: 1px; }
         }
 
         .theme-transition * {
@@ -1095,10 +1000,7 @@
         const confettiToggleText = document.getElementById('confettiToggleText');
 
         // ===== 主题状态 =====
-        const THEME = {
-            PINK: 'pink',
-            DARK: 'dark'
-        };
+        const THEME = { PINK: 'pink', DARK: 'dark' };
         let currentTheme = THEME.PINK;
         let isVideoEnded = false;
 
@@ -1125,7 +1027,6 @@
         function toggleTheme() {
             const next = currentTheme === THEME.PINK ? THEME.DARK : THEME.PINK;
             setTheme(next);
-            // 如果切换到暗模式且彩带正在运行，停止它（但保留用户可重新开启）
             if (next === THEME.DARK && confettiActive) {
                 if (confettiStartTimer) {
                     clearTimeout(confettiStartTimer);
@@ -1157,7 +1058,6 @@
                     confettiActive = false;
                     confettiToggleText.textContent = '撒花';
                 }
-                // 熄灯后启动烟花（改进版）
                 startAutoFireworks();
             }
         }
@@ -1173,7 +1073,6 @@
             customPlayBtn.style.display = 'none';
             startAudio();
 
-            // 如果视频未结束且彩带开关为开且尚未运行，则设定10秒后启动
             if (!isVideoEnded && confettiActive && !isConfettiRunning) {
                 if (confettiStartTimer) {
                     clearTimeout(confettiStartTimer);
@@ -1181,7 +1080,7 @@
                 }
                 confettiStartTimer = setTimeout(() => {
                     if (!isVideoEnded && confettiActive && !isConfettiRunning) {
-                        startConfetti(60); // 彩带粒子减为60
+                        startConfetti(60);
                     }
                     confettiStartTimer = null;
                 }, 10000);
@@ -1269,14 +1168,13 @@
             }
         });
 
-        // ===== 礼物卡控制 =====
+        // ===== 礼物卡控制（修改：关闭时不恢复播放） =====
         const giftModal = document.getElementById('giftModal');
         const giftBtn = document.getElementById('giftBtn');
         const closeModalBtn = document.getElementById('closeModalBtn');
-        let wasVideoPlaying = false;
 
         function openGiftModal() {
-            wasVideoPlaying = !video.paused;
+            // 打开礼物卡时暂停视频
             video.pause();
             video.removeAttribute('controls');
             video.classList.add('hidden-video');
@@ -1285,13 +1183,12 @@
         }
 
         function closeGiftModal() {
+            // 关闭礼物卡时，恢复界面，但视频保持暂停状态
             placeholder.classList.add('hidden');
             video.classList.remove('hidden-video');
             video.setAttribute('controls', 'controls');
             videoWrapper.classList.remove('blurred');
-            if (wasVideoPlaying) {
-                video.play().catch(() => {});
-            }
+            // 不再自动调用 video.play()
         }
 
         giftBtn.addEventListener('click', function(e) {
@@ -1313,106 +1210,174 @@
             }
         });
 
-        // ===== 星星生成（减少数量，提升性能） =====
+        // ============================================================
+        //  ===== 环境星光 =====
+        // ============================================================
         (function createStars() {
             const container = document.getElementById('starsContainer');
-            const count = 80; // 从120减少到80
+            const count = Math.min(52, Math.max(28, Math.round(window.innerWidth / 12)));
+            const frag = document.createDocumentFragment();
             for (let i = 0; i < count; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                const size = 1 + Math.random() * 3;
+                const size = Math.random() < .82 ? 1 : 1.6;
                 star.style.width = size + 'px';
                 star.style.height = size + 'px';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
-                star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
-                star.style.animationDelay = (Math.random() * 5) + 's';
-                container.appendChild(star);
+                frag.appendChild(star);
             }
+            container.appendChild(frag);
         })();
 
         // ============================================================
-        //  ===== 彩带（满天星）— 轻量级，开关控制 =====
+        //  ===== 庆典纸屑（丝带+花瓣+微光） =====
+        //  每次启动都从顶部撒落，关闭后重新打开也重新撒落。
         // ============================================================
         const canvas = document.getElementById('confetti-canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', { alpha: true });
         let confettiPieces = [];
-        let isConfettiRunning = false;
         let confettiRAF = null;
+        let isConfettiRunning = false;
         let confettiActive = true;
+        let confettiDpr = 1;
+        let pageVisible = true;
+        const mobileMode = () => window.innerWidth < 700;
 
         function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            confettiDpr = Math.min(mobileMode() ? 1.15 : 1.45, window.devicePixelRatio || 1);
+            canvas.width = Math.max(1, Math.floor(window.innerWidth * confettiDpr));
+            canvas.height = Math.max(1, Math.floor(window.innerHeight * confettiDpr));
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+            ctx.setTransform(confettiDpr, 0, 0, confettiDpr, 0, 0);
         }
-        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('resize', resizeCanvas, { passive: true });
         resizeCanvas();
 
-        class ConfettiPiece {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height - canvas.height;
-                this.w = 4 + Math.random() * 5; // 稍小一点
-                this.h = 2 + Math.random() * 4;
-                this.color = `hsl(${Math.random() * 60 + 320}, 70%, 60%)`;
-                this.speed = 1.2 + Math.random() * 2.2; // 速度略慢
-                this.angle = Math.random() * 2 * Math.PI;
-                this.rotationSpeed = (Math.random() - 0.5) * 0.06;
-                this.opacity = 0.6 + Math.random() * 0.4;
-                this.wind = (Math.random() - 0.5) * 0.2;
+        const celebrationPalette = [
+            '#f06292', '#ec407a', '#f48fb1',
+            '#f7b6c9', '#ffd1dc', '#d98bb0',
+            '#f3c27b', '#e8b6d4'
+        ];
+
+        class CelebrationParticle {
+            constructor(fromTop = false) {
+                this.reset(true, fromTop);
+            }
+            reset(initial = false, fromTop = false) {
+                this.x = Math.random() * window.innerWidth;
+                if (fromTop) {
+                    this.y = -10 - Math.random() * 120;
+                } else if (initial) {
+                    this.y = Math.random() * window.innerHeight;
+                } else {
+                    this.y = -25 - Math.random() * 100;
+                }
+                const r = Math.random();
+                this.type = r < .34 ? 'ribbon' : (r < .78 ? 'petal' : 'spark');
+                this.len = this.type === 'ribbon' ?
+                    15 + Math.random() * 20 :
+                    5 + Math.random() * 6;
+                this.w = this.type === 'ribbon' ?
+                    2.0 + Math.random() * 1.8 :
+                    1.9 + Math.random() * 2.2;
+                this.speed = this.type === 'spark' ?
+                    0.38 + Math.random() * 0.65 :
+                    0.45 + Math.random() * 0.8;
+                this.phase = Math.random() * Math.PI * 2;
+                this.phaseSpeed = 0.018 + Math.random() * 0.028;
+                this.sway = 0.45 + Math.random() * 0.8;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.spin = (Math.random() - 0.5) * 0.035;
+                this.alpha = this.type === 'spark' ?
+                    0.62 + Math.random() * 0.24 :
+                    0.68 + Math.random() * 0.22;
+                this.color = celebrationPalette[(Math.random() * celebrationPalette.length) | 0];
+                this.twinkle = Math.random() * Math.PI * 2;
             }
             update() {
+                this.phase += this.phaseSpeed;
+                this.twinkle += 0.045;
                 this.y += this.speed;
-                this.x += Math.sin(this.angle) * 0.2 + this.wind;
-                this.angle += this.rotationSpeed;
-                if (this.y > canvas.height + 20) {
-                    this.y = -20;
-                    this.x = Math.random() * canvas.width;
-                }
-                if (this.x < -20) this.x = canvas.width + 20;
-                if (this.x > canvas.width + 20) this.x = -20;
+                this.x += Math.sin(this.phase) * this.sway * 0.16;
+                this.rotation += this.spin;
+                if (this.y > window.innerHeight + 35) this.reset(false, false);
             }
             draw() {
-                ctx.save();
-                ctx.globalAlpha = this.opacity;
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.angle);
+                const pulse = 0.88 + Math.sin(this.twinkle) * 0.12;
+                ctx.globalAlpha = this.alpha * pulse;
                 ctx.fillStyle = this.color;
-                ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+                ctx.strokeStyle = this.color;
+                if (this.type === 'spark') {
+                    const r = this.w * 0.7;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(this.x - r, this.y);
+                    ctx.lineTo(this.x + r, this.y);
+                    ctx.moveTo(this.x, this.y - r);
+                    ctx.lineTo(this.x, this.y + r);
+                    ctx.stroke();
+                    return;
+                }
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                if (this.type === 'ribbon') {
+                    ctx.lineWidth = this.w;
+                    ctx.lineCap = 'round';
+                    ctx.beginPath();
+                    ctx.moveTo(-this.len * 0.5, 0);
+                    ctx.quadraticCurveTo(0, Math.sin(this.phase) * 5, this.len * 0.5, 0);
+                    ctx.stroke();
+                } else {
+                    const squash = 0.42 + Math.abs(Math.sin(this.rotation * 1.7)) * 0.58;
+                    ctx.scale(squash, 1);
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, this.len * 0.55, this.w, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                }
                 ctx.restore();
             }
         }
 
-        function startConfetti(count = 60) { // 粒子数从80减到60
-            if (isConfettiRunning) return;
+        function startConfetti(count) {
+            if (isConfettiRunning) stopConfetti();
+            const target = count ?
+                Math.min(count, mobileMode() ? 42 : 68) :
+                (mobileMode() ? 32 : 52);
+            confettiPieces = Array.from({ length: target }, () => new CelebrationParticle(true));
             isConfettiRunning = true;
-            for (let i = 0; i < count; i++) {
-                confettiPieces.push(new ConfettiPiece());
-            }
             animateConfetti();
         }
 
         function stopConfetti() {
             isConfettiRunning = false;
-            if (confettiRAF) {
-                cancelAnimationFrame(confettiRAF);
-                confettiRAF = null;
-            }
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            confettiPieces = [];
+            if (confettiRAF) cancelAnimationFrame(confettiRAF);
+            confettiRAF = null;
+            confettiPieces.length = 0;
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
         }
 
-        function animateConfetti() {
-            if (!isConfettiRunning) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let lastConfettiFrame = 0;
+
+        function animateConfetti(now = 0) {
+            if (!isConfettiRunning || !pageVisible) return;
+            const interval = mobileMode() ? 25 : 16;
+            if (now - lastConfettiFrame < interval) {
+                confettiRAF = requestAnimationFrame(animateConfetti);
+                return;
+            }
+            lastConfettiFrame = now;
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
             for (const p of confettiPieces) {
                 p.update();
                 p.draw();
             }
+            ctx.globalAlpha = 1;
             confettiRAF = requestAnimationFrame(animateConfetti);
         }
 
-        // ===== 满天星按钮：开关控制 =====
         function toggleConfetti() {
             if (confettiActive) {
                 if (confettiStartTimer) {
@@ -1428,9 +1393,7 @@
                     clearTimeout(confettiStartTimer);
                     confettiStartTimer = null;
                 }
-                if (!isConfettiRunning) {
-                    startConfetti(60);
-                }
+                startConfetti();
                 confettiToggleText.textContent = '清屏';
             }
         }
@@ -1441,169 +1404,203 @@
         });
 
         // ============================================================
-        //  ===== 烟花（改进：少量多次，持续更久，更流畅） =====
+        //  ===== 烟花（彗尾花瓣） =====
         // ============================================================
         let fireworks = [];
         let fireworkRAF = null;
         let autoFireworkTimer = null;
         let autoFireworkStopTimer = null;
+        let fireworkCanvas = null;
+        let fctx = null;
+        let fireworkDpr = 1;
+        let lastFireworkFrame = 0;
+
+        const FIREWORK_PALETTE = [
+            { main: '#f5b7c9', core: '#fff8fb' },
+            { main: '#f4cf9a', core: '#fffaf0' },
+            { main: '#dcb9e8', core: '#fff7ff' },
+            { main: '#f1a9bb', core: '#fff8fa' }
+        ];
 
         class FireworkParticle {
-            constructor(x, y, color) {
+            constructor(x, y, angle, speed, style, life = 1) {
                 this.x = x;
                 this.y = y;
-                const angle = Math.random() * 2 * Math.PI;
-                const speed = 1.5 + Math.random() * 4.5; // 速度稍降
+                this.px = x;
+                this.py = y;
                 this.vx = Math.cos(angle) * speed;
-                this.vy = Math.sin(angle) * speed - 1;
-                this.life = 1;
-                this.decay = 0.008 + Math.random() * 0.018;
-                this.color = color || `hsl(${Math.random() * 60 + 320}, 80%, 60%)`;
-                this.size = 2 + Math.random() * 3.5; // 粒子变小
-                this.gravity = 0.04;
+                this.vy = Math.sin(angle) * speed;
+                this.life = life;
+                this.decay = 0.014 + Math.random() * 0.008;
+                this.drag = 0.982;
+                this.gravity = 0.022 + Math.random() * 0.012;
+                this.size = 0.7 + Math.random() * 1.05;
+                this.style = style;
             }
             update() {
+                this.px = this.x;
+                this.py = this.y;
+                this.vx *= this.drag;
+                this.vy = this.vy * this.drag + this.gravity;
                 this.x += this.vx;
                 this.y += this.vy;
-                this.vy += this.gravity;
-                this.vx *= 0.99;
                 this.life -= this.decay;
             }
-            draw(ctxOverride) {
-                const c = ctxOverride || ctx;
+            draw(c) {
                 if (this.life <= 0) return;
-                c.save();
-                c.globalAlpha = this.life * 0.9;
-                c.shadowColor = this.color;
-                c.shadowBlur = 6;
+                const a = Math.max(0, this.life);
+                c.globalAlpha = a * 0.72;
+                c.strokeStyle = this.style.main;
+                c.lineWidth = this.size;
+                c.lineCap = 'round';
                 c.beginPath();
-                c.arc(this.x, this.y, this.size * this.life * 0.8, 0, Math.PI * 2);
-                c.fillStyle = this.color;
+                c.moveTo(this.px, this.py);
+                c.lineTo(this.x, this.y);
+                c.stroke();
+                c.globalAlpha = a * 0.55;
+                c.fillStyle = this.style.core;
+                c.beginPath();
+                c.arc(this.x, this.y, this.size * 0.55, 0, Math.PI * 2);
                 c.fill();
-                c.shadowBlur = 0;
-                c.restore();
             }
-            isDead() { return this.life <= 0; }
+            dead() { return this.life <= 0; }
+        }
+
+        class FireworkFlash {
+            constructor(x, y, style) { this.x = x;
+                this.y = y;
+                this.life = 1;
+                this.style = style; }
+            update() { this.life -= 0.055; }
+            draw(c) {
+                if (this.life <= 0) return;
+                const r = (1 - this.life) * 18 + 2;
+                c.globalAlpha = this.life * 0.22;
+                c.fillStyle = this.style.core;
+                c.beginPath();
+                c.arc(this.x, this.y, r, 0, Math.PI * 2);
+                c.fill();
+                c.globalAlpha = this.life * 0.75;
+                c.fillStyle = this.style.core;
+                c.beginPath();
+                c.arc(this.x, this.y, 1.4, 0, Math.PI * 2);
+                c.fill();
+            }
+            dead() { return this.life <= 0; }
         }
 
         function createFirework(x, y) {
-            const colors = ['#f06292', '#ec407a', '#f48fb1', '#fbbf24', '#ff6b6b', '#ffd93d', '#ff8a80', '#ea80fc'];
-            const count = 12; // 从15减到12
-            const particles = [];
+            if (fireworks.length > (mobileMode() ? 180 : 300)) return;
+            const style = FIREWORK_PALETTE[(Math.random() * FIREWORK_PALETTE.length) | 0];
+            const count = mobileMode() ? 20 : 28;
+            const offset = Math.random() * Math.PI * 2;
+            fireworks.push(new FireworkFlash(x, y, style));
             for (let i = 0; i < count; i++) {
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particles.push(new FireworkParticle(x, y, color));
+                const angle = offset + (Math.PI * 2 * i / count) + (Math.random() - 0.5) * 0.06;
+                const speed = 2.0 + Math.random() * 2.35;
+                fireworks.push(new FireworkParticle(x, y, angle, speed, style));
             }
-            fireworks.push(...particles);
+            if (!mobileMode()) {
+                for (let i = 0; i < 8; i++) {
+                    const angle = offset + (Math.PI * 2 * i / 8);
+                    fireworks.push(new FireworkParticle(x, y, angle, 1.05 + Math.random() * 0.55, style, 0.82));
+                }
+            }
+            if (!fireworkRAF) animateFireworks();
         }
 
-        let fireworkCanvas = null;
-        let fctx = null;
-
         function ensureFireworkCanvas() {
-            if (!fireworkCanvas) {
-                fireworkCanvas = document.createElement('canvas');
-                fireworkCanvas.id = 'firework-canvas';
-                fireworkCanvas.style.position = 'fixed';
-                fireworkCanvas.style.top = '0';
-                fireworkCanvas.style.left = '0';
-                fireworkCanvas.style.width = '100%';
-                fireworkCanvas.style.height = '100%';
-                fireworkCanvas.style.pointerEvents = 'none';
-                fireworkCanvas.style.zIndex = '9998';
-                document.body.appendChild(fireworkCanvas);
-                fireworkCanvas.width = window.innerWidth;
-                fireworkCanvas.height = window.innerHeight;
-                window.addEventListener('resize', () => {
-                    if (fireworkCanvas) {
-                        fireworkCanvas.width = window.innerWidth;
-                        fireworkCanvas.height = window.innerHeight;
-                    }
-                });
-                fctx = fireworkCanvas.getContext('2d');
-            }
+            if (fireworkCanvas) return fctx;
+            fireworkCanvas = document.createElement('canvas');
+            fireworkCanvas.id = 'firework-canvas';
+            fireworkCanvas.style.cssText =
+                'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9998;contain:strict;';
+            document.body.appendChild(fireworkCanvas);
+            fctx = fireworkCanvas.getContext('2d', { alpha: true });
+            resizeFireworkCanvas();
             return fctx;
         }
 
-        function animateFireworks() {
-            if (fireworks.length === 0) {
-                if (fireworkRAF) {
-                    cancelAnimationFrame(fireworkRAF);
-                    fireworkRAF = null;
-                }
-                if (fireworkCanvas) {
-                    const c = fctx || fireworkCanvas.getContext('2d');
-                    c.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
-                }
+        function resizeFireworkCanvas() {
+            if (!fireworkCanvas) return;
+            fireworkDpr = Math.min(mobileMode() ? 1.15 : 1.45, window.devicePixelRatio || 1);
+            fireworkCanvas.width = Math.max(1, Math.floor(window.innerWidth * fireworkDpr));
+            fireworkCanvas.height = Math.max(1, Math.floor(window.innerHeight * fireworkDpr));
+            fireworkCanvas.style.width = window.innerWidth + 'px';
+            fireworkCanvas.style.height = window.innerHeight + 'px';
+            fctx.setTransform(fireworkDpr, 0, 0, fireworkDpr, 0, 0);
+        }
+        window.addEventListener('resize', resizeFireworkCanvas, { passive: true });
+
+        function animateFireworks(now = 0) {
+            if (!pageVisible) { fireworkRAF = null; return; }
+            if (!fireworks.length) {
+                fireworkRAF = null;
+                if (fireworkCanvas) fctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
                 return;
             }
+            const interval = mobileMode() ? 24 : 16;
+            if (now - lastFireworkFrame < interval) { fireworkRAF = requestAnimationFrame(animateFireworks); return; }
+            lastFireworkFrame = now;
             const c = ensureFireworkCanvas();
-            c.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
+            c.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            c.globalCompositeOperation = 'lighter';
             for (let i = fireworks.length - 1; i >= 0; i--) {
                 const p = fireworks[i];
                 p.update();
-                if (p.isDead()) {
-                    fireworks.splice(i, 1);
-                    continue;
-                }
+                if (p.dead()) { fireworks.splice(i, 1); continue; }
                 p.draw(c);
             }
+            c.globalCompositeOperation = 'source-over';
+            c.globalAlpha = 1;
             fireworkRAF = requestAnimationFrame(animateFireworks);
         }
 
-        // ---- 自动烟花：持续更久（约30秒），间隔600ms，共50朵 ----
         function startAutoFireworks() {
-            if (autoFireworkTimer) {
-                clearInterval(autoFireworkTimer);
-                autoFireworkTimer = null;
-            }
-            if (autoFireworkStopTimer) {
-                clearTimeout(autoFireworkStopTimer);
-                autoFireworkStopTimer = null;
-            }
+            if (autoFireworkTimer) clearInterval(autoFireworkTimer);
+            if (autoFireworkStopTimer) clearTimeout(autoFireworkStopTimer);
             let count = 0;
-            const maxBursts = 50; // 从40增加到50
-            autoFireworkTimer = setInterval(() => {
-                if (count >= maxBursts) {
-                    clearInterval(autoFireworkTimer);
-                    autoFireworkTimer = null;
-                    return;
-                }
-                const x = window.innerWidth * (0.1 + Math.random() * 0.8);
-                const y = window.innerHeight * (0.1 + Math.random() * 0.6);
+            const maxBursts = mobileMode() ? 12 : 18;
+            const interval = mobileMode() ? 850 : 720;
+            const fire = () => {
+                if (count++ >= maxBursts) { clearInterval(autoFireworkTimer);
+                    autoFireworkTimer = null; return; }
+                const x = window.innerWidth * (0.18 + Math.random() * 0.64);
+                const y = window.innerHeight * (0.16 + Math.random() * 0.43);
                 createFirework(x, y);
-                if (!fireworkRAF) {
-                    animateFireworks();
-                }
-                count++;
-            }, 600);
-
+            };
+            fire();
+            autoFireworkTimer = setInterval(fire, interval);
             autoFireworkStopTimer = setTimeout(() => {
-                if (autoFireworkTimer) {
-                    clearInterval(autoFireworkTimer);
-                    autoFireworkTimer = null;
-                }
-            }, maxBursts * 600 + 1000);
+                if (autoFireworkTimer) { clearInterval(autoFireworkTimer);
+                    autoFireworkTimer = null; }
+            }, maxBursts * interval + 500);
         }
 
-        // ---- 手动烟花：持续约5秒，每300ms一朵，共约16朵 ----
         document.getElementById('fireBtn').addEventListener('click', function(e) {
             e.stopPropagation();
             let count = 0;
-            const maxCount = 16;
-            const interval = setInterval(() => {
-                if (count >= maxCount) {
-                    clearInterval(interval);
-                    return;
-                }
-                const x = window.innerWidth * (0.1 + Math.random() * 0.8);
-                const y = window.innerHeight * (0.1 + Math.random() * 0.6);
+            const maxCount = mobileMode() ? 7 : 10;
+            const interval = mobileMode() ? 430 : 330;
+            const timer = setInterval(() => {
+                if (count++ >= maxCount) { clearInterval(timer); return; }
+                const x = window.innerWidth * (0.14 + Math.random() * 0.72);
+                const y = window.innerHeight * (0.14 + Math.random() * 0.5);
                 createFirework(x, y);
-                if (!fireworkRAF) {
-                    animateFireworks();
-                }
-                count++;
-            }, 300);
+            }, interval);
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            pageVisible = !document.hidden;
+            if (!pageVisible) {
+                if (confettiRAF) cancelAnimationFrame(confettiRAF);
+                if (fireworkRAF) cancelAnimationFrame(fireworkRAF);
+                confettiRAF = null;
+                fireworkRAF = null;
+            } else {
+                if (confettiActive && isConfettiRunning) animateConfetti();
+                if (fireworks.length) animateFireworks();
+            }
         });
 
         // ===== 清理 =====
@@ -1615,7 +1612,8 @@
             if (autoFireworkStopTimer) clearTimeout(autoFireworkStopTimer);
         });
 
-        console.log('🎀 慧慧妹妹生日快乐！性能优化版：星星80颗，彩带60片，烟花粒子12个，手动持续5秒，自动持续约30秒，手机流畅。');
+        console.log('🎀 慧慧妹妹生日快乐！彩带会在视频播放10秒后从顶部撒落，关闭后重新打开也会重新撒落。');
+        console.log('📌 关闭礼物卡后，视频保持暂停，不会自动播放。');
     })();
 </script>
 </body>
