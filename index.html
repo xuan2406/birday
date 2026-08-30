@@ -999,6 +999,10 @@
         const confettiBtn = document.getElementById('confettiBtn');
         const confettiToggleText = document.getElementById('confettiToggleText');
 
+        // ===== 音量设置 =====
+        const VIDEO_VOLUME = 0.9;
+        const AUDIO_VOLUME = 0.5;
+
         // ===== 主题状态 =====
         const THEME = { PINK: 'pink', DARK: 'dark' };
         let currentTheme = THEME.PINK;
@@ -1071,6 +1075,8 @@
                 this.setAttribute('controls', 'controls');
             }
             customPlayBtn.style.display = 'none';
+            // 确保音量
+            this.volume = VIDEO_VOLUME;
             startAudio();
 
             if (!isVideoEnded && confettiActive && !isConfettiRunning) {
@@ -1101,12 +1107,14 @@
 
         customPlayBtn.addEventListener('click', function(e) {
             e.stopPropagation();
+            video.volume = VIDEO_VOLUME;
             video.play().catch(() => {});
         });
 
         // ===== 音频控制 =====
         function startAudio() {
             if (audio.paused) {
+                audio.volume = AUDIO_VOLUME;
                 audio.play().catch(() => {});
             }
         }
@@ -1138,6 +1146,10 @@
 
         // ===== 页面加载 =====
         window.addEventListener('load', function() {
+            // 设置音量
+            video.volume = VIDEO_VOLUME;
+            audio.volume = AUDIO_VOLUME;
+
             video.play().catch(() => {});
             startAudio();
             setTheme(THEME.PINK, false);
@@ -1147,9 +1159,11 @@
 
         document.addEventListener('click', function startOnClick() {
             if (video.paused) {
+                video.volume = VIDEO_VOLUME;
                 video.play().catch(() => {});
             }
             if (audio.paused) {
+                audio.volume = AUDIO_VOLUME;
                 startAudio();
             }
             document.removeEventListener('click', startOnClick);
@@ -1168,13 +1182,12 @@
             }
         });
 
-        // ===== 礼物卡控制（修改：关闭时不恢复播放） =====
+        // ===== 礼物卡控制（关闭时不恢复播放） =====
         const giftModal = document.getElementById('giftModal');
         const giftBtn = document.getElementById('giftBtn');
         const closeModalBtn = document.getElementById('closeModalBtn');
 
         function openGiftModal() {
-            // 打开礼物卡时暂停视频
             video.pause();
             video.removeAttribute('controls');
             video.classList.add('hidden-video');
@@ -1183,12 +1196,11 @@
         }
 
         function closeGiftModal() {
-            // 关闭礼物卡时，恢复界面，但视频保持暂停状态
             placeholder.classList.add('hidden');
             video.classList.remove('hidden-video');
             video.setAttribute('controls', 'controls');
             videoWrapper.classList.remove('blurred');
-            // 不再自动调用 video.play()
+            // 保持视频暂停，不自动播放
         }
 
         giftBtn.addEventListener('click', function(e) {
@@ -1614,6 +1626,7 @@
 
         console.log('🎀 慧慧妹妹生日快乐！彩带会在视频播放10秒后从顶部撒落，关闭后重新打开也会重新撒落。');
         console.log('📌 关闭礼物卡后，视频保持暂停，不会自动播放。');
+        console.log(`🔊 视频音量: ${VIDEO_VOLUME}，背景音乐音量: ${AUDIO_VOLUME}`);
     })();
 </script>
 </body>
